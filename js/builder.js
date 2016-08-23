@@ -78,6 +78,30 @@ var variables = [
     , configFunction: ""                  // function chosen
     , tint: "0"               // tint value chosen
     }
+  , {
+    name: "body-bg"           // variable name for Less
+    , displayName: "Body Background"  // name to use in tool panel
+    , value: "#fff"             // actual calculated value (use for local CSS)
+    , varType: "color"             // variable type = color
+    , configType: "colorpicker" // config type determines controllor activity based on type
+    , displayValue: "#ffffff"   // display value field (hex, @variable, or formula)
+    , variable: ""              // @variable if specified
+    , color: "#ffffff"          // color picked
+    , configFunction: ""                  // function chosen
+    , tint: "0"               // tint value chosen
+    }
+  , {
+    name: "text-color"           // variable name for Less
+    , displayName: "Text Color"  // name to use in tool panel
+    , value: "#333333"             // actual calculated value (use for local CSS)
+    , varType: "color"             // variable type = color
+    , configType: "colorpicker" // config type determines controllor activity based on type
+    , displayValue: "#333333"   // display value field (hex, @variable, or formula)
+    , variable: ""              // @variable if specified
+    , color: "#333333"          // color picked
+    , configFunction: ""                  // function chosen
+    , tint: "0"               // tint value chosen
+    }
 ];
 
 //
@@ -95,6 +119,9 @@ _.each(variables, function(variable, index, variables) {
 
 $('#collapse-grays').append(colorVarTools);
 
+//
+// INITIALIZE APP
+//
 
 $(function () {
 
