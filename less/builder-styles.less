@@ -1,0 +1,252 @@
+// out: ../css/builder-styles.css, compress: false, strictMath: true, sourceMap: true
+@import "variables.less";
+
+body,
+html {
+  height: 100%;
+  position: relative;
+  font-size:14px;
+}
+
+iframe {
+  overflow-y: scroll;
+  float: left;
+  height: 100%;
+  width: 100%;
+}
+
+.application {
+  height: 100%;
+  width: calc(100% - 232px);
+  min-width: 320px;
+  padding: 0px;
+  margin: 0px;
+  background: #ffffff;
+  overflow: auto;
+}
+
+.color-swatch {
+  height: 84px;
+  border: 1px solid #ddd;
+}
+
+  @media (max-width: @screen-sm) {
+    .color-swatch {
+      height:72px;
+    }
+  }
+
+// Base Colors
+.brand-primary {
+  background-color: @brand-primary;
+}
+
+.brand-success {
+  background-color: @brand-success;
+}
+
+.brand-info {
+  background-color: @brand-info;
+}
+
+.brand-warning {
+  background-color: @brand-warning;
+}
+
+.brand-danger {
+  background-color: @brand-danger;
+}
+
+// Grays
+.gray-base {
+  background-color: @gray-base;
+}
+
+.gray-darker {
+  background-color: @gray-darker;
+}
+
+.gray-dark {
+  background-color: @gray-dark;
+}
+
+.gray {
+  background-color: @gray;
+}
+
+.gray-light {
+  background-color: @gray-light;
+}
+
+.gray-lighter {
+  background-color: @gray-lighter;
+}
+
+// Scaffold Colors
+.body-bg {
+  background-color: #fff;
+}
+
+.text-color {
+  background-color: @gray-dark;
+}
+
+// Font Families
+.font-sans-serif {
+  font-family: @font-family-sans-serif;
+}
+
+.font-serif {
+  font-family: @font-family-serif;
+}
+
+.font-monospace {
+  font-family: @font-family-monospace;
+}
+
+.font-base {
+  font-family: @font-family-base;
+}
+
+// TOOL PANEL STYLES
+
+.tool-panel {
+  width: 232px;
+  float: right;
+  height: 100%;
+  padding: 0;
+  margin: 0px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #c3c3c3;
+  overflow: scroll;
+  padding-top:50px;
+}
+
+.tool-panel label {
+  margin-top: .5em;
+  padding-bottom: .25em;
+}
+
+// PANEL STYLES
+
+.panel-outer, .panel-inner{
+  margin: 0;
+  border: none;
+}
+
+.panel-heading {
+  background-image: none;
+}
+
+.panel-outer .panel-heading {
+  background-image: none;
+  background-color: #777;
+  color: #eee;
+}
+
+.panel-outer .panel-body {
+  padding: 0;
+}
+
+.panel-inner .panel-heading {
+  background-image: none;
+  background-color: #eee;
+  color: #777;
+}
+
+.panel-inner .panel-body {
+  padding: 0 1em 1em 1em;
+}
+
+.panel-inner hr {
+  margin-bottom:0;
+}
+
+// CONSOLE STYLES
+
+#console {
+   word-wrap: break-word;
+//  margin-bottom:0;
+}
+
+// UI STYLES
+
+.swatch-dropdown {
+  display:inline-block;
+  height:16px;
+  width:16px;
+  margin-right:10px;
+  vertical-align: middle;
+}
+
+// CONFIG STYLES
+
+.colorpicker-component,
+.colorpicker-component .input-group-addon,
+.config-display{
+  display:inline-block;
+}
+
+.config-display{
+  width:auto !important;
+  float:right;
+}
+
+
+.input-group-addon {
+  width:32px !important;
+  padding: 0;
+}
+
+.color-picker {
+  border-radius: 0;
+  background-image: none;
+}
+
+.colorpicker-element .input-group-addon i {
+  width:32px !important;
+  height:32px !important;
+}
+
+.variable-display {
+  padding:0 10px 10px 10px;
+}
+
+.variable-display .input-group-addon,
+.variable-display .form-control {
+  border-radius:0;
+}
+
+.config-variables,
+.config-tint {
+  display:none;
+}
+
+.config-variables ul{
+  margin-top:-1px;
+  overflow-y:scroll;
+  max-height:122px;
+  border-radius: 0px;
+}
+
+.config-variables .list-group-item {
+  border-radius: 0px;
+}
+
+
+// SLIDER STYLES
+
+.slider {
+  margin-left:10px;
+  max-width:185px;
+}
+.slider .slider-selection {
+	background: #BABABA;
+}
+.slider-handle{
+  background-image: none !important;
+  background-color: #eee !important;
+  border:1px solid #888 !important;
+}
