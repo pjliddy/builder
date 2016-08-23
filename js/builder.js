@@ -289,7 +289,7 @@ function updateColorSwatch ( myVarID ){
 function updateDisplayValue ( myVarID ){
   $('#' + myVarID).find('.config-display').val( getVar( myVarID, 'displayValue'));
   updateColorSwatch( myVarID );
-
+   $("#layoutframe").contents().find( "." + myVarID ).css( "background-color", getVar( myVarID, 'value') );
   //showVar( _.where(variables, { name: myVarID }) );
 }
 
