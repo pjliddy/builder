@@ -8,18 +8,22 @@
 var variables = [
   {
     name: "brand-primary"
+    , category: "Colors"
+    , subcategory: "Brand Colors"
     , displayName: "Brand Primary"
     , value: "#337ab7"
     , varType: "color"
-    , configType: "colorpicker"
-    , displayValue: "#337ab7"
+    , configType: "function"
+    , displayValue: "darken(#428bca, 6.5%)" //#337ab7
     , variable: ""
-    , color: "#337ab7"
-    , configFunction: ""
-    , tint: "0"
+    , color: "#428bca"
+    , configFunction: "darken"
+    , tint: "6.5"
     }
     , {
     name: "brand-success"
+    , category: "Colors"
+    , subcategory: "Brand Colors"
     , displayName: "Brand Success"
     , value: "#5cb85c"
     , varType: "color"
@@ -32,6 +36,8 @@ var variables = [
     }
     , {
     name: "brand-info"
+    , category: "Colors"
+    , subcategory: "Brand Colors"
     , displayName: "Brand Info"
     , value: "#5bc0de"
     , varType: "color"
@@ -44,6 +50,8 @@ var variables = [
     }
     , {
     name: "brand-warning"
+    , category: "Colors"
+    , subcategory: "Brand Colors"
     , displayName: "Brand Warning"
     , value: "#f0ad4e"
     , varType: "color"
@@ -56,6 +64,8 @@ var variables = [
     }
     , {
     name: "brand-danger"
+    , category: "Colors"
+    , subcategory: "Brand Colors"
     , displayName: "Brand Danger"
     , value: "#d9534f"
     , varType: "color"
@@ -68,39 +78,115 @@ var variables = [
     }
     , {
     name: "gray-base"           // variable name for Less
+    , category: "Colors"
+    , subcategory: "Grays"
     , displayName: "Base Gray"  // name to use in tool panel
     , value: "#000"             // actual calculated value (use for local CSS)
-    , varType: "color"             // variable type = color
+    , varType: "color"          // variable type = color
     , configType: "colorpicker" // config type determines controllor activity based on type
     , displayValue: "#000000"   // display value field (hex, @variable, or formula)
     , variable: ""              // @variable if specified
     , color: "#000000"          // color picked
-    , configFunction: ""                  // function chosen
-    , tint: "0"               // tint value chosen
+    , configFunction: ""        // function chosen
+    , tint: "0"                 // tint value chosen
+    }
+    , {
+    name: "gray-darker"
+    , category: "Colors"
+    , subcategory: "Grays"
+    , displayName: "Darker Gray"
+    , value: "#222"
+    , varType: "color"
+    , configType: "function"
+    , displayValue: "lighten(@gray-base, 13.5%)"
+    , variable: "@gray-base"
+    , color: ""
+    , configFunction: "lighten"
+    , tint: "13.5"
     }
   , {
-    name: "body-bg"           // variable name for Less
-    , displayName: "Body Background"  // name to use in tool panel
-    , value: "#fff"             // actual calculated value (use for local CSS)
-    , varType: "color"             // variable type = color
-    , configType: "colorpicker" // config type determines controllor activity based on type
-    , displayValue: "#ffffff"   // display value field (hex, @variable, or formula)
-    , variable: ""              // @variable if specified
-    , color: "#ffffff"          // color picked
-    , configFunction: ""                  // function chosen
-    , tint: "0"               // tint value chosen
+    name: "gray-dark"
+    , category: "Colors"
+    , subcategory: "Grays"
+    , displayName: "Dark Gray"
+    , value: "#333"
+    , varType: "color"
+    , configType: "function"
+    , displayValue: "lighten(@gray-base, 20%)"
+    , variable: "@gray-base"
+    , color: ""
+    , configFunction: "lighten"
+    , tint: "20"
     }
   , {
-    name: "text-color"           // variable name for Less
-    , displayName: "Text Color"  // name to use in tool panel
-    , value: "#333333"             // actual calculated value (use for local CSS)
-    , varType: "color"             // variable type = color
-    , configType: "colorpicker" // config type determines controllor activity based on type
-    , displayValue: "#333333"   // display value field (hex, @variable, or formula)
-    , variable: ""              // @variable if specified
-    , color: "#333333"          // color picked
-    , configFunction: ""                  // function chosen
-    , tint: "0"               // tint value chosen
+    name: "gray"
+    , category: "Colors"
+    , subcategory: "Grays"
+    , displayName: "Gray"
+    , value: "#555"
+    , varType: "color"
+    , configType: "function"
+    , displayValue: "lighten(@gray-base, 33.5%)"
+    , variable: "@gray-base"
+    , color: ""
+    , configFunction: "lighten"
+    , tint: "33.5"
+    }
+  , {
+    name: "gray-light"
+    , category: "Colors"
+    , subcategory: "Grays"
+    , displayName: "Light Gray"
+    , value: "#777"
+    , varType: "color"
+    , configType: "function"
+    , displayValue: "lighten(@gray-base, 46.7%)"
+    , variable: "@gray-base"
+    , color: ""
+    , configFunction: "lighten"
+    , tint: "46.7"
+    }
+  , {
+    name: "gray-lighter"
+    , category: "Colors"
+    , subcategory: "Grays"
+    , displayName: "Lighter Gray"
+    , value: "#eee"
+    , varType: "color"
+    , configType: "function"
+    , displayValue: "lighten(@gray-base, 93.5%)"
+    , variable: "@gray-base"
+    , color: ""
+    , configFunction: "lighten"
+    , tint: "93.5"
+    }
+  ,{
+    name: "body-bg"
+    , category: "Colors"
+    , subcategory: "Scaffolding Colors"
+    , displayName: "Body Background"
+    , value: "#fff"
+    , varType: "color"
+    , configType: "colorpicker"
+    , displayValue: "#ffffff"
+    , variable: ""
+    , color: "#ffffff"
+    , configFunction: ""
+    , tint: "0"
+  }
+  , {
+    name: "text-color"
+    , category: "Colors"
+    , subcategory: "Scaffolding Colors"
+    , displayName: "Text Color"
+    , value: "#333333"
+    , varType: "color"
+    , configType: "colorpicker"
+    , displayValue: "#333333"
+    , variable: ""
+    , color: "#333333"
+    , configFunction: ""
+    , tint: "0"
     }
 ];
 
@@ -111,7 +197,9 @@ var variables = [
 var colorVarTemplate = _.template( $('#colorvar-template').html());
 var colorVarTools = "";
 
+// @variables and functions need to be translated into hex color value
 _.each(variables, function(variable, index, variables) {
+  // if variable.color starts with "@",
   colorVarTools += colorVarTemplate({
     variable: variable
   });
