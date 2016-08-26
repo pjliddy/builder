@@ -5,7 +5,7 @@
 
 // ADD MORE ATTRIBUTES TO GLOBAL VARIABLE STRUCTURE
 
-var variables = [
+var varData = [
   {
     name: "brand-primary"
     , category: "Colors"
@@ -194,18 +194,44 @@ var variables = [
 // TEMPLATE SCRIPTS
 //
 
-var colorVarTemplate = _.template( $('#colorvar-template').html());
-var colorVarTools = "";
+var categoryVars = _.filter(varData, function(colorVar){ return colorVar.category == 'Colors'; });
 
-// @variables and functions need to be translated into hex color value
-_.each(variables, function(variable, index, variables) {
-  // if variable.color starts with "@",
-  colorVarTools += colorVarTemplate({
-    variable: variable
-  });
+var categoryTemplate = _.template( $('#category-template').html());
+
+var categoryLayout = "";
+
+categoryLayout += categoryTemplate({
+  categoryVars: categoryVars,
+  category: 'Colors'
 });
 
-$('#collapse-grays').append(colorVarTools);
+$('.tool-panel').append(categoryLayout);
+
+
+function layoutSubcategories ( catVars ){
+  var subcategoryTemplate = _.template( $('#subcategory-template').html());
+  var subcategoryVars = _.toArray(_.groupBy(catVars, function(catVar){ return catVar.subcategory; }));
+  var subcategoryLayout = "";
+
+  _.each( subcategoryVars, function( subcategoryVar, index, subcategoryVars ){
+    var subcategory = subcategoryVar[0].subcategory;
+    subcategoryLayout += subcategoryTemplate({ subcategoryVar: subcategoryVar, subcategory });
+  });
+
+  //alert (JSON.stringify( subcategoryVars ) );
+  return subcategoryLayout;
+}
+
+function layoutVariables( variables ){
+  var varTemplate = _.template( $('#colorvar-template').html());
+  var varLayout = "";
+
+  _.each( variables, function( variable, index, variables ){
+    varLayout += varTemplate({ variable: variable });
+  });
+  return varLayout;
+}
+
 
 //
 // INITIALIZE APP
@@ -218,9 +244,9 @@ $(function () {
   // CREATE UI ELEMENTS
 
   // create color pickers
-  _.each( _.where(variables, { varType: "color" }), function( colorVar ) {
+  _(_( varData ).where({ varType: "color" })).each( function( colorVar ){
     createColorPicker( colorVar.name );
-    $('#' + colorVar.name).find('.color-picker').css('background-color', getVar( colorVar.name, 'value'));
+    $( '#' + colorVar.name ).find( '.color-picker' ).css( 'background-color', getVar( colorVar.name, 'value' ));
   });
 
   // create sliders
@@ -257,15 +283,14 @@ $(function () {
 //
 
 function setVar( varID, valueID, value ){
-  var myDataObj = _.findWhere(variables, { name: varID });
-  myDataObj[valueID]=value;
-  // update layout iframe's css value
-  //  $("#layoutframe").contents().find("." + varName).css("background-color", value);
+   _(varData).findWhere({ name: varID })[valueID]=value;
+  //myDataObj[valueID]=value;
 }
 
 function getVar(varID, valueID) {
   // finds the varID object with valueID and returns the value property
-  return  _.propertyOf( _.findWhere(variables, { name: varID }) )( valueID );
+  return _(_(varData).findWhere({ name: varID })).propertyOf( )( valueID );
+  //return  _.propertyOf( _.findWhere(varData, { name: varID }) )( valueID );
 }
 
 // SETUP SCRIPTS
@@ -405,7 +430,7 @@ function updateDisplayValue ( myVarID ){
   $('#' + myVarID).find('.config-display').val( getVar( myVarID, 'displayValue'));
   updateColorSwatch( myVarID );
    $("#layoutframe").contents().find( "." + myVarID ).css( "background-color", getVar( myVarID, 'value') );
-  //showVar( _.where(variables, { name: myVarID }) );
+  //showVar( _(varData).where({ name: myVarID }) );
 }
 
 
@@ -417,9 +442,9 @@ function generateVariables() {
   // when the user clicks the "export" link a version of variables.less is generated
   // and displayed in a new window
   var lessText = "<div style='font-family:\"Lucida Console\", Monaco, monospace;'>";
-  for (i = 0; i < variables.length; i++) {
-    name = variables[i].name;
-    value = variables[i].displayValue;
+  for (i = 0; i < varData.length; i++) {
+    name = varData[i].name;
+    value = varData[i].displayValue;
     lessText += ("<span style='display:block;'>@" + name + ":\t" + value + ";" + "</span>");
   }
   lessText += "</div>";
