@@ -144,10 +144,6 @@ iframe {
   border-radius: 0;
   background-image: none;
 }
-.colorpicker-component .input-group-addon,
-.config-display {
-  display: inline-block;
-}
 .config-display {
   width: auto !important;
   float: right;
@@ -159,8 +155,7 @@ iframe {
 .variable-display {
   padding: 0 10px 10px 10px;
 }
-.variable-display .input-group-addon,
-.variable-display .form-control {
+.form-control {
   border-radius: 0;
 }
 .config-variables,

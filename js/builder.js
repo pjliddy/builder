@@ -1,10 +1,5 @@
 // builder.js
 
-// Declare global array of objects, one for each variable
-
-
-// ADD MORE ATTRIBUTES TO GLOBAL VARIABLE STRUCTURE
-
 var varData = [
   {
     name: "brand-primary"
@@ -14,7 +9,7 @@ var varData = [
     , value: "#337ab7"
     , varType: "color"
     , configType: "function"
-    , displayValue: "darken(#428bca, 6.5%)" //#337ab7
+    , displayValue: "darken(#428bca, 6.5%)"
     , variable: ""
     , color: "#428bca"
     , configFunction: "darken"
@@ -195,9 +190,7 @@ var varData = [
 //
 
 var categoryVars = _.filter(varData, function(colorVar){ return colorVar.category == 'Colors'; });
-
 var categoryTemplate = _.template( $('#category-template').html());
-
 var categoryLayout = "";
 
 categoryLayout += categoryTemplate({
@@ -231,7 +224,6 @@ function layoutVariables( variables ){
   });
   return varLayout;
 }
-
 
 //
 // INITIALIZE APP
@@ -293,7 +285,9 @@ function getVar(varID, valueID) {
   //return  _.propertyOf( _.findWhere(varData, { name: varID }) )( valueID );
 }
 
-// SETUP SCRIPTS
+//
+// UI OBJECT SETUP SCRIPTS
+//
 
 function createColorPicker( varID ) {
   // create color picker object with the specified hex color
@@ -433,7 +427,6 @@ function updateDisplayValue ( myVarID ){
   //showVar( _(varData).where({ name: myVarID }) );
 }
 
-
 //
 // LESS/CSS SCRIPTS
 //
@@ -464,8 +457,4 @@ function showVar( vars ) {
   // show string version of global variables array in the console
   console(JSON.stringify( vars ));
 }
-
-
-
-
 
