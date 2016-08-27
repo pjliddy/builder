@@ -1,4 +1,4 @@
-[
+data = [
   {
     name: "brand-primary"
     , category: "Colors"
@@ -7,7 +7,7 @@
     , value: "#337ab7"
     , varType: "color"
     , configType: "function"
-    , displayValue: "darken(#428bca, 6.5%)" //#337ab7
+    , displayValue: "darken(#428bca, 6.5%)"
     , variable: ""
     , color: "#428bca"
     , configFunction: "darken"
@@ -181,4 +181,4 @@
     , configFunction: ""
     , tint: "0"
     }
-]
+];

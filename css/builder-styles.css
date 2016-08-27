@@ -125,18 +125,19 @@ iframe {
   color: #777;
 }
 .panel-inner .panel-body {
-  padding: 0 1em 1em 1em;
+  padding: 0 1em 0 1em;
 }
 .panel-inner hr {
   margin-bottom: 0;
+  margin-top: 10;
 }
 #console {
   word-wrap: break-word;
 }
 .swatch-dropdown {
   display: inline-block;
-  height: 16px;
-  width: 16px;
+  height: 16px !important;
+  width: 16px !important;
   margin-right: 10px;
   vertical-align: middle;
 }
@@ -153,7 +154,7 @@ iframe {
   padding: 0;
 }
 .variable-display {
-  padding: 0 10px 10px 10px;
+  padding: 0 10px 0 10px;
 }
 .form-control {
   border-radius: 0;

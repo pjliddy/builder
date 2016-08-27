@@ -167,11 +167,13 @@ iframe {
 }
 
 .panel-inner .panel-body {
-  padding: 0 1em 1em 1em;
+  padding: 0 1em 0 1em;
 }
 
 .panel-inner hr {
+//  margin:0;
   margin-bottom:0;
+  margin-top:10;
 }
 
 // CONSOLE STYLES
@@ -185,10 +187,14 @@ iframe {
 
 .swatch-dropdown {
   display:inline-block;
-  height:16px;
-  width:16px;
+  height:16px !important;
+  width:16px !important;
   margin-right:10px;
   vertical-align: middle;
+}
+
+.config-close{
+
 }
 
 // CONFIG STYLES
@@ -198,16 +204,10 @@ iframe {
   background-image: none;
 }
 
-//.colorpicker-component .input-group-addon,
-//.config-display{
-//  display:inline-block;
-//}
-
 .config-display{
   width:auto !important;
   float:right;
 }
-
 
 .input-group-addon {
   width:30px;
@@ -215,7 +215,7 @@ iframe {
 }
 
 .variable-display {
-  padding:0 10px 10px 10px;
+  padding:0 10px 0 10px;
 }
 
 .form-control {
