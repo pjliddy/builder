@@ -1,0 +1,54 @@
+// extend prototype to new class with properties and functions
+
+var myClass = function(){};
+
+myClass.prototype = {
+    some_property: null,
+    some_other_property: 0,
+
+    doSomething: function(msg) {
+        this.some_property = msg;
+        alert(this.some_property);
+    }
+};
+
+
+// create an instance of the class
+
+var myClassObject = new myClass();
+
+myClassObject.doSomething("Hello Worlds");
+
+
+
+
+
+$.Player = function ($) {
+
+};
+
+$.Player.prototype.InitEvents = function () {
+
+        $(this).keypress(function (e) {
+            var key = e.which;
+            if (key == 100) {
+                MoveRight();
+            }
+            if (key == 97) {
+                MoveLeft();
+            }
+        });
+ };
+
+ $.Player.prototype.MoveRight = function () {
+     $(this).css("right", this.playerX += 10);
+ }
+
+ $.Player.prototype.MoveLeft = function () {
+     $(this).css("right", this.playerX -= 10);
+ }
+
+$.Player.defaultOptions = {
+    playerX: 0,
+    playerY: 0
+};

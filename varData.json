@@ -71,8 +71,8 @@ data = [
     }
     , {
     name: "gray-base"           // variable name for Less
-    , category: "Colors"
-    , subcategory: "Grays"
+    , category: "Colors"        // UI Category Label
+    , subcategory: "Grays"      // UI Subcategory Label
     , displayName: "Base Gray"  // name to use in tool panel
     , value: "#000"             // actual calculated value (use for local CSS)
     , varType: "color"          // variable type = color
@@ -175,9 +175,9 @@ data = [
     , value: "#333333"
     , varType: "color"
     , configType: "colorpicker"
-    , displayValue: "#333333"
-    , variable: ""
-    , color: "#333333"
+    , displayValue: "@gray-dark"
+    , variable: "@gray-dark"
+    , color: ""
     , configFunction: ""
     , tint: "0"
     }

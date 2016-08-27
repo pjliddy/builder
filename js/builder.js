@@ -5,7 +5,7 @@
 //
 
 // load global variable data
-var varData =  data ;
+var varData =  data;
 
 // LAYOUT TOOL PANEL
 
@@ -21,7 +21,7 @@ categoryLayout += categoryTemplate({
 $('.tool-panel').append(categoryLayout);
 
 $(function () {
-   // CREATE UI ELEMENTS
+  // CREATE UI ELEMENTS
 
   // create color pickers
   _(_( varData ).where({ varType: "color" })).each( function( colorVar ){
@@ -86,21 +86,39 @@ function layoutVariables( variables ){
 
   _.each( variables, function( variable, index, variables ){
     varLayout += varTemplate({ variable: variable });
+
+    if (variable.variable !=""){
+      var watchObj = _.find(varData, function(varObj){ return varObj.name == variable.variable.replace("@", "") });
+
+      watch( watchObj, 'value', function(){
+        if ( getVar( variable.name, 'configType' ) == 'function'){
+          setVar( variable.name, 'color', watchObj.value);
+          updateConfigFunction( $('#' + variable.name));
+        } else {
+          setVar( variable.name, 'value', watchObj.value);
+          updateDisplayValue( variable.name );
+        }
+      });
+    }
   });
   return varLayout;
 }
 
-function layoutVarMenu( varType ){
-  // either bind menu items to variable color values
-  // or generate menu in real time when configType menu chooses "variable"
-  var colorVars = _.filter(varData, function(varObj){ return varObj.category == 'Colors'; });
-  var menuItemTemplate = _.template( $('#varmenu-template').html());
+function layoutVarMenu( myVarID, varType ){
+  var colorVars = _.filter( varData, function( varObj ){ return varObj.category == 'Colors'; });
+  // exclude self from list (prevent circular refernces)
+  var colorVars = _.reject( colorVars, function( varObj ){ return varObj.name == myVarID; });
+  var menuItemTemplate = _.template( $( '#varmenu-template').html( ));
   var menuLayout = "";
 
   _.each( colorVars, function( colorVar, index, colorVars ){
     menuLayout += menuItemTemplate({ colorVar: colorVar });
-  });
 
+    // create watch function
+    watch(colorVar, "value", function(){
+      $( '.var-menu-item:contains("@' + colorVar.name + '")').find('.swatch-dropdown').css('background-color', colorVar.value);
+    });
+  });
   return menuLayout;
 }
 
@@ -145,7 +163,7 @@ function updateConfigType(){
       setVar( myVarID, 'displayValue', getVar(myVarID, 'value'));
       break;
     case 'variable':
-      var menuLayout = layoutVarMenu( 'color' );
+      var menuLayout = layoutVarMenu( myVarID, 'color' );
       $(myVarContainer).find('.config-variables ul').append( menuLayout);
       $(myVarContainer).find('.config-variables').show();
       $(myVarContainer).find('.config-tint').hide();
@@ -194,6 +212,17 @@ function updateConfigVariable(){
   // get configVar's value
   var colorValue = getVar( configVar, 'value');
   setVar( myVarID, 'variable', "@" + configVar );
+
+  var watchObj = _.find(varData, function(varObj){ return varObj.name == configVar });
+  watch( watchObj, 'value', function(){
+    if ( getVar( myVarID, 'configType' ) == 'function'){
+      setVar( myVarID, 'color', watchObj.value);
+      updateConfigFunction( $(myVarContainer));
+    } else {
+      setVar( myVarID, 'value', watchObj.value);
+      updateDisplayValue( myVarID );
+    }
+  });
 
   if ( getVar(myVarID, 'configType') == 'function'){
     updateConfigFunction( $(myVarContainer) );
@@ -269,12 +298,11 @@ function setFlyup( clickEvt ){
 }
 
 function updateDisplayValue ( myVarID ){
+  // if function, also call update function
   $('#' + myVarID).find('.config-display').val( getVar( myVarID, 'displayValue'));
   updateColorSwatch( myVarID );
    $("#layoutframe").contents().find( "." + myVarID ).css( "background-color", getVar( myVarID, 'value') );
 }
-
-
 
 //
 // LESS/CSS SCRIPTS
@@ -306,4 +334,5 @@ function showVar( vars ) {
   // show string version of global variables array in the console
   console(JSON.stringify( vars ));
 }
+
 

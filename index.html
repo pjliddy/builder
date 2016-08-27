@@ -42,9 +42,12 @@
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script src="/js/underscore.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.string/3.3.4/underscore.string.js"></script>
+  <script src="/js/watch.js"></script>
   <script src="/js/bootstrap-colorpicker.js"></script>
   <script src="/js/bootstrap-slider.js"></script>
   <script src="/js/tinycolor.1.4.1.js"></script>
+  <script type="text/javascript" src="/js/templates.js"></script>
+
   <script type="text/template" id="category-template">
     <!-- Category Outer Panel -->
     <div class="panel panel-default panel-outer">
@@ -96,9 +99,7 @@
       <div class="config-variables">
         <label>Variable</label>
         <button type="button" class="btn btn-link config-close pull-right">×</button>
-        <ul class="list-group">
-
-        </ul>
+        <ul class="list-group"></ul>
       </div>
       <!-- Tint slider for formulas -->
       <div class="config-tint" >
@@ -117,7 +118,7 @@
     </div>
   </script>
   <script type="text/template" id="varmenu-template">
-    <a href="#" class="list-group-item" data-value="<%= colorVar.name %>"><span class="swatch-dropdown" style="background-color: <%= colorVar.value %>"></span>@<%= colorVar.name %></a>
+    <a href="#" class="list-group-item var-menu-item" data-value="<%= colorVar.name %>"><span class="swatch-dropdown" style="background-color: <%= colorVar.value %>"></span>@<%= colorVar.name %></a>
   </script>
   <script src="/js/builder.js"></script>
 </body>
