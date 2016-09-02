@@ -5,10 +5,6 @@ body,
 html {
   height: 100%;
   position: relative;
-  //font-size:14px;
-}
-body {
-  padding-top:20px;
 }
 
 iframe {
@@ -16,8 +12,12 @@ iframe {
   float: left;
   height: 100%;
   width: 100%;
+  padding-top:50px;
 }
 
+.navbar {
+  margin-bottom:0;
+}
 .application {
   height: 100%;
   width: calc(100% - 232px);
@@ -28,87 +28,10 @@ iframe {
   overflow: auto;
 }
 
-.color-swatch {
-  height: 84px;
-  border: 1px solid #ddd;
-}
-
-  @media (max-width: @screen-sm) {
-    .color-swatch {
-      height:72px;
-    }
-  }
-
-// Base Colors
-.brand-primary {
-  background-color: @brand-primary;
-}
-
-.brand-success {
-  background-color: @brand-success;
-}
-
-.brand-info {
-  background-color: @brand-info;
-}
-
-.brand-warning {
-  background-color: @brand-warning;
-}
-
-.brand-danger {
-  background-color: @brand-danger;
-}
-
-// Grays
-.gray-base {
-  background-color: @gray-base;
-}
-
-.gray-darker {
-  background-color: @gray-darker;
-}
-
-.gray-dark {
-  background-color: @gray-dark;
-}
-
-.gray {
-  background-color: @gray;
-}
-
-.gray-light {
-  background-color: @gray-light;
-}
-
-.gray-lighter {
-  background-color: @gray-lighter;
-}
-
-// Scaffold Colors
-.body-bg {
-  background-color: #fff;
-}
-
-.text-color {
-  background-color: @gray-dark;
-}
-
-// Font Families
-.font-sans-serif {
-  font-family: @font-family-sans-serif;
-}
-
-.font-serif {
-  font-family: @font-family-serif;
-}
-
-.font-monospace {
-  font-family: @font-family-monospace;
-}
-
-.font-base {
-  font-family: @font-family-base;
+#version {
+  color:@gray-light;
+  line-height: 50px;
+  height:50px;
 }
 
 // TOOL PANEL STYLES
@@ -134,7 +57,8 @@ iframe {
 
 // PANEL STYLES
 
-.panel-outer, .panel-inner{
+.panel-outer,
+.panel-inner{
   margin: 0;
   border: none;
 }
@@ -205,13 +129,18 @@ iframe {
 }
 
 .config-display{
-  width:auto !important;
-  float:right;
+//  width:auto !important;
+//  float:right;
 }
 
+.tool-full-width {
+  width:204px !important;
+}
 .input-group-addon {
   width:30px;
   padding: 0;
+  border-radius:0;
+  height:34px;
 }
 
 .variable-display {
@@ -223,21 +152,25 @@ iframe {
 }
 
 .config-variables,
-.config-tint {
+.config-tint,
+.config-fonts,
+.config-attribute{
   display:none;
 }
 
-.config-variables ul{
+.config-variables ul,
+.config-fonts ul {
   margin-top:-1px;
   overflow-y:scroll;
   max-height:122px;
   border-radius: 0px;
 }
 
-.config-variables .list-group-item {
+.config-variables .list-group-item,
+.config-fonts .list-group-item {
   border-radius: 0px;
+  padding: 6px 12px 6px 12px;
 }
-
 
 // SLIDER STYLES
 

@@ -5,99 +5,125 @@
   <title>Bootstrap Builder</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="/css/builder-styles.css">
+  <link rel="stylesheet" href="/css/layout-styles.css">
   <link rel="stylesheet" href="/css/bootstrap.css">
-  <link rel="stylesheet" href="/css/bootstrap-theme.css"> </head>
+<!--  <link rel="stylesheet/less" type="text/css" href="/less/builder.less" />-->
+<!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.7.1/less.js" type="text/javascript"></script>-->
+<!--  <link rel="stylesheet/css" type="text/css" href="/css/builder.css" />-->
+<link rel="stylesheet/css" type="text/css" href="/css/layout-styles.css" />
+
+  <link rel="stylesheet" href="/css/bootstrap-theme.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+</head>
 
 <body>
   <div class="container">
     <div class="page-header">
-      <h1>Theme Colors</h1> </div>
-    <h2>Brand Colors</h2>
+      <h1>Bootstrap Builder</h1> </div>
+    <div class="page-header" id="colors">
+      <h2>Colors</h2> </div>
+    <h3 id="brand-colors">Brand Colors</h3>
     <div class="row">
       <div class="col-sm-2 col-xs-4">
-        <div class="brand-primary color-swatch"></div>
+        <div class="color-swatch brand-primary"></div>
         <label>Primary</label>
       </div>
       <div class="col-sm-2 col-xs-4">
-        <div class="brand-success color-swatch"></div>
+        <div class="color-swatch brand-success"></div>
         <label>Success</label>
       </div>
       <div class="col-sm-2 col-xs-4">
-        <div class="brand-info color-swatch"></div>
+        <div class="color-swatch brand-info"></div>
         <label>Info</label>
       </div>
       <div class="col-sm-2 col-xs-4">
-        <div class="brand-warning color-swatch"></div>
+        <div class="color-swatch brand-warning"></div>
         <label>Warning</label>
       </div>
       <div class="col-sm-2 col-xs-4">
-        <div class="brand-danger color-swatch"></div>
+        <div class="color-swatch brand-danger"></div>
         <label>Danger</label>
       </div>
     </div>
-    <h2>Grays</h2>
+    <h3 id="grays">Grays</h3>
     <div class="row">
       <div class="col-sm-2 col-xs-4">
-        <div class="gray-base color-swatch"></div>
+        <div class="color-swatch gray-base"></div>
         <label>Base</label>
       </div>
       <div class="col-sm-2 col-xs-4">
-        <div class="gray-darker color-swatch"></div>
+        <div class="color-swatch gray-darker"></div>
         <label>Darker</label>
       </div>
       <div class="col-sm-2 col-xs-4">
-        <div class="gray-dark color-swatch"></div>
+        <div class="color-swatch gray-dark"></div>
         <label>Dark</label>
       </div>
       <div class="col-sm-2 col-xs-4">
-        <div class="gray color-swatch"></div>
+        <div class="color-swatch gray"></div>
         <label>Gray</label>
       </div>
       <div class="col-sm-2 col-xs-4">
-        <div class="gray-light color-swatch"></div>
+        <div class="color-swatch gray-light"></div>
         <label>Light</label>
       </div>
       <div class="col-sm-2 col-xs-4">
-        <div class="gray-lighter color-swatch"></div>
+        <div class="color-swatch gray-lighter"></div>
         <label>Lighter</label>
       </div>
     </div>
-    <h2>Scaffold Colors</h2>
     <div class="row">
-      <div class="col-sm-2 col-xs-4">
-        <div class="body-bg color-swatch"></div>
-        <label>Body Background</label>
-      </div>
-      <div class="col-sm-2 col-xs-4">
-        <div class="text-color color-swatch"></div>
-        <label>Text Color</label>
-      </div>
-    </div>
+      <div class="col-sm-6">
 
+        <h3 id="scaffolding-colors">Scaffold Colors</h3>
+        <div class="row">
+          <div class="col-sm-4 col-xs-4">
+            <div class="color-swatch body-bg"></div>
+            <label>Body Background</label>
+          </div>
+          <div class="col-sm-4 col-xs-4">
+            <div class="color-swatch text-color"></div>
+            <label>Text Color</label>
+          </div>
+        </div>
+      </div>
 <!--
-    <div class="page-header">
-      <h2>Fonts</h2>
-    </div>
-    <div class="row">
-      <div class="col-sm-4">
-        <p class="font-sans-serif"><strong>Sans Serif Font Family.</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</label>
+      <div class="col-sm-6">
+        <h3>Links</h3>
+        <a class="btn btn-lg btn-link custom-link custom-underline" class="custom-link">Link</a>
       </div>
-      <div class="col-sm-4">
-        <p class="font-serif"><strong>Serif Font Family.</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</label>
-      </div>
-      <div class="col-sm-4">
-        <p class="font-monospace"><strong>Monospace Font Family.</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</label>
-      </div>
-      <div class="col-sm-12">
-        <p class="font-base"><strong>Base Font Family.</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</label>
-      </div>
-    </div>
 -->
-
+    </div>
+    <div class="page-header" id="fonts">
+      <h2 id="font-families">Fonts</h2> </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <h3>Sans Serif Font Family</h3>
+        <p class="font-family-sans-serif">This is a block of type using the sans serif font family. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</label>
+      </div>
+      <div class="col-sm-6">
+        <h3>Serif Font Family</h3>
+        <p class="font-family-serif">This is a block of type using the serif font family. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</label>
+      </div>
+      <div class="clearfix visible-sm visible-md visible-lg"></div>
+      <div class="col-sm-6">
+        <h3>Monospace Font Family</h3>
+        <p class="font-family-monospace">This is a block of type using the monospace font family. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</label>
+      </div>
+      <div class="col-sm-6">
+        <h3>Base Font Family</h3>
+        <p class="font-family-base">This is a block of type using the base family. This font family is used as the base font for the whole theme. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</label>
+      </div>
+      <div class="clearfix visible-sm visible-md visible-lg"></div>
+    </div>
   </div>
+  <script type="text/javascript" src="variables.json"></script>
+  <script type="text/javascript" src="fonts.json"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="/js/underscore.js"></script>
+  <script src="/js/layout.js"></script>
 </body>
 
 </html>

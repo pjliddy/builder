@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <title>Bootstrap Builder Panel</title>
   <meta charset="utf-8">
@@ -11,6 +10,8 @@
   <link rel="stylesheet" href="/css/font-awesome.min.css">
   <link rel="stylesheet" href="/css/bootstrap-slider.css">
   <link href="/css/bootstrap-colorpicker.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
 </head>
 
 <body>
@@ -19,7 +20,12 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#builderNavbar"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> <a class="navbar-brand" href="#">BUILDER</a> </div>
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#builderNavbar">
+            <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">BUILDER</a>
+          <span id="version">MVP 3</span>
+        </div>
         <div class="collapse navbar-collapse" id="builderNavbar">
           <ul class="nav navbar-nav"></ul>
           <ul class="nav navbar-nav navbar-right">
@@ -33,10 +39,12 @@
       <p>Your browser does not support iframes.</p>
     </iframe>
     <!--  tool panel -->
-    <div class="tool-panel"></div>
+    <div class="tool-panel" id="tool-panel"></div>
   </div>
 
-  <script type="text/javascript" src="varData.json"></script>
+  <script type="text/javascript" src="variables.json"></script>
+  <script type="text/javascript" src="fonts.json"></script>
+  <script type="text/javascript" src="defaults.json"></script>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -46,17 +54,16 @@
   <script src="/js/bootstrap-colorpicker.js"></script>
   <script src="/js/bootstrap-slider.js"></script>
   <script src="/js/tinycolor.1.4.1.js"></script>
-  <script type="text/javascript" src="/js/templates.js"></script>
 
   <script type="text/template" id="category-template">
     <!-- Category Outer Panel -->
     <div class="panel panel-default panel-outer">
       <div class="panel-heading">
-        <a data-toggle="collapse" href="#collapse-<% print(s.slugify(category.toLowerCase())); %>">
-          <h4 class="panel-title"><%= category %> <span>+</span> </h4>
+        <a data-toggle="collapse" href="#collapse-<% print(s.slugify(categoryName.toLowerCase())); %>">
+          <h4 class="panel-title"><%= categoryName %> <span></span> </h4>
         </a>
       </div>
-      <div id="collapse-<% print(s.slugify(category.toLowerCase())) %>" class="panel-collapse collapse in">
+      <div id="collapse-<% print(s.slugify(categoryName.toLowerCase())) %>" class="panel-collapse collapse in">
         <!-- <div class="panel-body">-->
           <!-- Subcategories Inner Panel -->
           <% print(layoutSubcategories( categoryVars )); %>
@@ -68,7 +75,7 @@
     <div class="panel panel-default panel-inner">
       <div class="panel-heading">
         <a data-toggle="collapse" href="#collapse-<% print(s.slugify(subcategory.toLowerCase())); %>">
-          <h4 class="panel-title"><%= subcategory %> <span>+</span></h4>
+          <h4 class="panel-title"><%= subcategory %> <span></span></h4>
         </a>
       </div>
       <div id="collapse-<% print(s.slugify(subcategory.toLowerCase())); %>" class="panel-collapse collapse ">
@@ -117,9 +124,91 @@
       <hr />
     </div>
   </script>
-  <script type="text/template" id="varmenu-template">
-    <a href="#" class="list-group-item var-menu-item" data-value="<%= colorVar.name %>"><span class="swatch-dropdown" style="background-color: <%= colorVar.value %>"></span>@<%= colorVar.name %></a>
+  <script type="text/template" id="fontfamilyvar-template">
+    <div id="<%= variable.name %>" class="panel-body variable-display">
+      <!-- Variable Label -->
+      <label><%= variable.displayName %></label>
+      <div class="btn-group dropdown config-type pull-right">
+        <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown"> <i class="caret"></i> </button>
+        <ul class="dropdown-menu dropdown-menu-right">
+          <li><a href="#" data-value="fontfamily">Font Family</a></li>
+          <li><a href="#" data-value="variable">Choose Variable</a></li>
+        </ul>
+      </div>
+      <!-- Value Display -->
+      <div class="input-group" >
+        <input type="text" class="form-control config-display tool-full-width"/>
+      </div>
+      <div class="config-fonts">
+        <label>Font Families</label>
+        <button type="button" class="btn btn-link config-close pull-right">×</button>
+        <ul class="list-group"></ul>
+      </div>
+      <!-- Variable List collapsible panel -->
+      <div class="config-variables">
+        <label>Variable</label>
+        <button type="button" class="btn btn-link config-close pull-right">×</button>
+        <ul class="list-group"></ul>
+      </div>
+      <hr />
+    </div>
   </script>
+  <script type="text/template" id="fontsizevar-template">
+    <div id="<%= variable.name %>" class="panel-body variable-display">
+      <!-- Variable Label -->
+      <label><%= variable.displayName %></label>
+      <div class="btn-group dropdown config-type pull-right">
+        <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown"> <i class="caret"></i> </button>
+        <ul class="dropdown-menu dropdown-menu-right">
+          <li><a href="#" data-value="number">Number</a></li>
+          <li><a href="#" data-value="variable">Choose Variable</a></li>
+          <li><a href="#" data-value="function">Function</a></li>
+        </ul>
+      </div>
+      <!-- Value Display -->
+      <div class="input-group" >
+        <input type="text" class="form-control config-display tool-full-width"/>
+      </div>
+      <!-- Variable List collapsible panel -->
+      <div class="config-variables">
+        <label>Variable</label>
+        <button type="button" class="btn btn-link config-close pull-right">×</button>
+        <ul class="list-group"></ul>
+      </div>
+      <hr />
+    </div>
+  </script>
+  <script type="text/template" id="attributevar-template">
+    <div id="<%= variable.name %>" class="panel-body variable-display">
+      <!-- Variable Label -->
+      <label><%= variable.displayName %></label>
+      <div class="btn-group dropdown config-type pull-right">
+        <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown"> <i class="caret"></i> </button>
+        <ul class="dropdown-menu dropdown-menu-right">
+          <li><a href="#" data-value="attribute">Attribute</a></li>
+          <!-- <li><a href="#" data-value="variable">Choose Variable</a></li> -->
+        </ul>
+      </div>
+      <!-- Value Display -->
+      <div class="input-group" >
+        <input type="text" class="form-control config-display tool-full-width" style="text-decoration: <%= variable.value %>"/>
+      </div>
+      <!-- Attribute List collapsible panel -->
+      <div class="config-attribute">
+        <label>Attribute</label>
+        <button type="button" class="btn btn-link config-close pull-right">×</button>
+        <ul class="list-group"></ul>
+      </div>
+      <!-- Variable List collapsible panel -->
+      <div class="config-variables">
+        <label>Variable</label>
+        <button type="button" class="btn btn-link config-close pull-right">×</button>
+        <ul class="list-group"></ul>
+      </div>
+      <hr />
+    </div>
+  </script>
+
   <script src="/js/builder.js"></script>
 </body>
 </html>

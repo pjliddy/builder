@@ -4,14 +4,15 @@ html {
   height: 100%;
   position: relative;
 }
-body {
-  padding-top: 20px;
-}
 iframe {
   overflow-y: scroll;
   float: left;
   height: 100%;
   width: 100%;
+  padding-top: 50px;
+}
+.navbar {
+  margin-bottom: 0;
 }
 .application {
   height: 100%;
@@ -22,65 +23,10 @@ iframe {
   background: #ffffff;
   overflow: auto;
 }
-.color-swatch {
-  height: 84px;
-  border: 1px solid #ddd;
-}
-@media (max-width: 768px) {
-  .color-swatch {
-    height: 72px;
-  }
-}
-.brand-primary {
-  background-color: #337ab7;
-}
-.brand-success {
-  background-color: #5cb85c;
-}
-.brand-info {
-  background-color: #5bc0de;
-}
-.brand-warning {
-  background-color: #f0ad4e;
-}
-.brand-danger {
-  background-color: #d9534f;
-}
-.gray-base {
-  background-color: #000000;
-}
-.gray-darker {
-  background-color: #222222;
-}
-.gray-dark {
-  background-color: #333333;
-}
-.gray {
-  background-color: #555555;
-}
-.gray-light {
-  background-color: #777777;
-}
-.gray-lighter {
-  background-color: #eeeeee;
-}
-.body-bg {
-  background-color: #fff;
-}
-.text-color {
-  background-color: #333333;
-}
-.font-sans-serif {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-.font-serif {
-  font-family: Georgia, "Times New Roman", Times, serif;
-}
-.font-monospace {
-  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
-}
-.font-base {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+#version {
+  color: #777777;
+  line-height: 50px;
+  height: 50px;
 }
 .tool-panel {
   width: 232px;
@@ -145,13 +91,14 @@ iframe {
   border-radius: 0;
   background-image: none;
 }
-.config-display {
-  width: auto !important;
-  float: right;
+.tool-full-width {
+  width: 204px !important;
 }
 .input-group-addon {
   width: 30px;
   padding: 0;
+  border-radius: 0;
+  height: 34px;
 }
 .variable-display {
   padding: 0 10px 0 10px;
@@ -160,17 +107,22 @@ iframe {
   border-radius: 0;
 }
 .config-variables,
-.config-tint {
+.config-tint,
+.config-fonts,
+.config-attribute {
   display: none;
 }
-.config-variables ul {
+.config-variables ul,
+.config-fonts ul {
   margin-top: -1px;
   overflow-y: scroll;
   max-height: 122px;
   border-radius: 0px;
 }
-.config-variables .list-group-item {
+.config-variables .list-group-item,
+.config-fonts .list-group-item {
   border-radius: 0px;
+  padding: 6px 12px 6px 12px;
 }
 .slider {
   margin-top: 15px;
