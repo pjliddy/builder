@@ -103,8 +103,8 @@ iframe {
 // CONSOLE STYLES
 
 #console {
-   word-wrap: break-word;
-//  margin-bottom:0;
+  word-wrap: break-word;
+  margin-bottom:0;
 }
 
 // UI STYLES
@@ -128,19 +128,25 @@ iframe {
   background-image: none;
 }
 
-.config-display{
-//  width:auto !important;
-//  float:right;
+//.config-display{
+//  width:inherit;
+//}
+.config-display[disabled]{
+  cursor:auto;
+  background:#fff;
 }
-
+//.config-color{
+//  padding:3px;
+//  width:30px !important;
+//}
 .tool-full-width {
   width:204px !important;
 }
 .input-group-addon {
-  width:30px;
+  width:32px;
   padding: 0;
   border-radius:0;
-  height:34px;
+//  height:34px;
 }
 
 .variable-display {
@@ -150,6 +156,8 @@ iframe {
 .form-control {
   border-radius:0;
 }
+
+
 
 .config-variables,
 .config-tint,

@@ -6,19 +6,42 @@
 
 // load global variable data
 var fontData =  fonts;
-var varData =  variables;
+var varData = variables;
+var vars =  getVarData( variables );
+
+function getVarData( varObjects ){
+  var output = {};
+  _.each( variables, function( varObject, index, varObjects ){
+
+    switch( varObject.varType ) {
+      case 'color':
+        varObj = new ColorVar( varObject );
+        break;
+      case 'font-family':
+        varObj = new Variable( varObject );
+        break;
+    }
+
+    output[varObject.name] = varObj;
+  });
+
+  return output;
+}
 
 // layout tool panel
 layoutCategories( _.groupBy(varData, function(varObj){ return varObj.category; }), '#tool-panel');
 
+
+
 $(function () {
 // CREATE UI ELEMENTS
 
+  // object should create and set its own color picker
   // create color pickers
-  _(_( varData ).where({ varType: "color" })).each( function( colorVar ){
-    createColorPicker( colorVar.name );
-    $( '#' + colorVar.name ).find( '.color-picker' ).css( 'background-color', getVar( colorVar.name, 'value' ));
-  });
+  //  _(_( varData ).where({ varType: "color" })).each( function( colorVar ){
+  //    createColorPicker( colorVar.name );
+  //    $( '#' + colorVar.name ).find( '.color-picker' ).css( 'background-color', getVar( colorVar.name, 'value' ));
+  //  });
 
   // create sliders
   $("input.slider").slider();
@@ -37,6 +60,7 @@ $(function () {
   $('.config-type a').click( updateConfigType );
 
   // color picker updated
+  // HANDLE BY OBJECT
   $('.color-picker').colorpicker().on('changeColor', function ( pickerEvt ) {
     updateColorPicker( pickerEvt);
   });
@@ -57,7 +81,7 @@ $(function () {
   });
 
   $('.variable-display').each(function(){
-    updateDisplayValue( $(this).attr("id") );
+    updateoutput( $(this).attr("id") );
   });
 });
 
@@ -95,11 +119,21 @@ function layoutSubcategories ( catVars ){
 function layoutVariables( variables ){
   var varLayout = "";
 
+  // test class creation here
+  var varObjects = {};
+
   _.each( variables, function( variable, index, variables ){
-     // use correct template based on varType
+
+    // use correct template based on varType
     switch( variable.varType ) {
       case 'color':
-        var varTemplate = _.template( $('#colorvar-template').html());
+        // test class creation here
+        varObj = new ColorVar( variables, index );
+
+        // BOTH OF THESE HAPPEN AFTER SWITCH, REGARDLESS OF VALUES
+        varObjects[variable.name] = varObj;
+        var varTemplate = varObj.getTemplate();
+        //var varTemplate = _.template( $('#colorvar-template').html());
         break;
       case 'font-family':
         var varTemplate = _.template( $('#fontfamilyvar-template').html());
@@ -113,6 +147,9 @@ function layoutVariables( variables ){
     }
 
     varLayout += varTemplate({ variable: variable });
+
+    // VARIABLE OBJECTS SHOULD WATCH THEMSELVES
+
     var watchObj = _.find(varData, function(varObj){ return varObj.name == variable.variable.replace("@", "") });
 
     if (variable.variable ){
@@ -122,7 +159,7 @@ function layoutVariables( variables ){
           updateConfigFunction( $('#' + variable.name));
         } else {
           setVar( variable.name, 'value', watchObj.value);
-          updateDisplayValue( variable.name );
+          updateoutput( variable.name );
         }
       });
     } else {
@@ -150,21 +187,21 @@ function layoutVarMenu( myVarID, varType ){
       case 'font-family':
         var menuItemTemplate = _.template(
           '<a href="#" class="list-group-item var-menu-item text-nowrap" data-value="<%= menuVar.name %>">'
-          + '</span>@<%= menuVar.name %>'
+          + '@<%= menuVar.name %>'
           + '</a>'
         );
         break;
       case 'font-size':
         var menuItemTemplate = _.template(
           '<a href="#" class="list-group-item var-menu-item text-nowrap" data-value="<%= menuVar.name %>">'
-          + '</span>@<%= menuVar.name %>'
+          + '@<%= menuVar.name %>'
           + '</a>'
         );
         break;
       case 'attribute':
          var menuItemTemplate = _.template(
           '<a href="#" class="list-group-item var-menu-item text-nowrap" data-value="<%= attribute %>">'
-          + '</span>@<%= attribute %>'
+          + '@<%= attribute %>'
           + '</a>'
         );
         break;
@@ -252,10 +289,10 @@ function getVar(varID, valueID) {
 // UI OBJECT SETUP SCRIPTS
 //
 
-function createColorPicker( varID ) {
-  // create color picker object with the specified hex color
-  $('#' + varID + ' .color-picker').colorpicker({ color: getVar( varID, 'value'), align: 'left'  });
-}
+//function createColorPicker( varID ) {
+//  // create color picker object with the specified hex color
+//  $('#' + varID + ' .color-picker').colorpicker({ color: getVar( varID, 'value'), align: 'left'  });
+//}
 
 //
 // COLOR CONFIG EVENT HANDLERS
@@ -273,7 +310,7 @@ function updateConfigType(){
       $(myVarContainer).find('.config-tint').hide();
       setVar( myVarID, 'configType', 'colorpicker');
       setVar( myVarID, 'variable', '');
-      setVar( myVarID, 'displayValue', getVar(myVarID, 'value'));
+      setVar( myVarID, 'output', getVar(myVarID, 'value'));
       break;
     case 'variable':
       // destroy existing menu
@@ -314,7 +351,7 @@ function updateConfigType(){
       $('.config-attribute a').click( updateConfigAttribute );
       break;
   }
-  updateDisplayValue( myVarID );
+  updateoutput( myVarID );
 }
 
 function updateColorPicker( evt ){
@@ -328,12 +365,12 @@ function updateColorPicker( evt ){
   if ( getVar(myVarID, 'configType')!= 'function'){
     setVar( myVarID, 'configType', 'colorpicker' );
     setVar( myVarID, 'value', evt.color.toHex() );
-    setVar( myVarID, 'displayValue', evt.color.toHex() );
+    setVar( myVarID, 'output', evt.color.toHex() );
   } else {
     setVar( myVarID, 'variable', '');
     updateConfigFunction( $(myVarContainer) );
   }
-  updateDisplayValue( myVarID );
+  updateoutput( myVarID );
 }
 
 function updateConfigVariable(){
@@ -352,7 +389,7 @@ function updateConfigVariable(){
       updateConfigFunction( $(myVarContainer));
     } else {
       setVar( myVarID, 'value', watchObj.value);
-      updateDisplayValue( myVarID );
+      updateoutput( myVarID );
     }
   });
 
@@ -363,9 +400,9 @@ function updateConfigVariable(){
     setVar( myVarID, 'configType', 'variable');
     setVar( myVarID, 'color', colorValue);
     setVar( myVarID, 'value', colorValue);
-    setVar( myVarID, 'displayValue', getVar( myVarID, 'variable'));
+    setVar( myVarID, 'output', getVar( myVarID, 'variable'));
   }
-  updateDisplayValue( myVarID );
+  updateoutput( myVarID );
 }
 
 function updateConfigFunction ( thisObj ) {
@@ -396,9 +433,9 @@ function updateConfigFunction ( thisObj ) {
   }
 
   setVar( myVarID, 'value', value );
-  setVar( myVarID, 'displayValue', myFunc );
+  setVar( myVarID, 'output', myFunc );
 
-  updateDisplayValue( myVarID );
+  updateoutput( myVarID );
 }
 
 function updateConfigTint( slideEvt ){
@@ -408,7 +445,7 @@ function updateConfigTint( slideEvt ){
 
   setVar( myVarID, 'tint', tintValue );
   updateConfigFunction( myVarContainer );
-  updateDisplayValue( myVarID );
+  updateoutput( myVarID );
 }
 
 function updateColorSwatch ( myVarID ){
@@ -423,9 +460,9 @@ function updateConfigFontFamily(){
 
   setVar( myVarID, 'configType', 'fontfamily');
   setVar( myVarID, 'value', fontAttr.value);
-  setVar( myVarID, 'displayValue', fontAttr.value);
+  setVar( myVarID, 'output', fontAttr.value);
 
-  updateDisplayValue( myVarID );
+  updateoutput( myVarID );
 }
 
 function updateConfigAttribute(){
@@ -434,13 +471,13 @@ function updateConfigAttribute(){
   var myAttribute = $(this).data("value");
 
   setVar( myVarID, 'configType', 'attribute' );
-  setVar( myVarID, 'displayValue', myAttribute );
+  setVar( myVarID, 'output', myAttribute );
   setVar( myVarID, 'value', myAttribute );
 
   // apply to display value
   $(myVarContainer).find('.config-display').css('text-decoration', myAttribute );
 
-  updateDisplayValue( myVarID ); // bind display to value when created ?
+  updateoutput( myVarID ); // bind display to value when created ?
 }
 
 
@@ -458,9 +495,9 @@ function setFlyup( clickEvt ){
   }
 }
 
-function updateDisplayValue ( myVarID ){
+function updateoutput ( myVarID ){
   // if function, also call update function
-  $('#' + myVarID).find('.config-display').val( getVar( myVarID, 'displayValue'));
+  $('#' + myVarID).find('.config-display').val( getVar( myVarID, 'output'));
   updateColorSwatch( myVarID );
 }
 
@@ -474,13 +511,13 @@ function generateVariables() {
   var lessText = "<div style='font-family:\"Lucida Console\", Monaco, monospace;'>";
   for (i = 0; i < varData.length; i++) {
     name = varData[i].name;
-    value = varData[i].displayValue;
+    value = varData[i].output;
     lessText += ("<span style='display:block;'>@" + name + ":\t" + value + ";" + "</span>");
   }
   lessText += "// default values //";
   for (i = 0; i < defaults.length; i++) {
     name = defaults[i].name;
-    value = defaults[i].displayValue;
+    value = defaults[i].output;
     lessText += ("<span style='display:block;'>" + name + ":\t" + value + ";" + "</span>");
   }
 

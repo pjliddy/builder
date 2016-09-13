@@ -1,0 +1,13 @@
+<!-- Category Outer Panel -->
+<script type="text/template" id="category-template">
+  <div class="panel panel-default panel-outer">
+  <div class="panel-heading">
+    <a data-toggle="collapse" href="#collapse-<% print(s.slugify(categoryName.toLowerCase())); %>">
+      <h4 class="panel-title"><%= categoryName %> <span></span> </h4>
+    </a>
+  </div>
+  <div id="collapse-<% print(s.slugify(categoryName.toLowerCase())) %>" class="panel-collapse collapse in">
+      <!-- Subcategories Inner Panel -->
+  </div>
+</div>
+</script>

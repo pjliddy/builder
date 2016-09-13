@@ -79,6 +79,7 @@ iframe {
 }
 #console {
   word-wrap: break-word;
+  margin-bottom: 0;
 }
 .swatch-dropdown {
   display: inline-block;
@@ -91,14 +92,17 @@ iframe {
   border-radius: 0;
   background-image: none;
 }
+.config-display[disabled] {
+  cursor: auto;
+  background: #fff;
+}
 .tool-full-width {
   width: 204px !important;
 }
 .input-group-addon {
-  width: 30px;
+  width: 32px;
   padding: 0;
   border-radius: 0;
-  height: 34px;
 }
 .variable-display {
   padding: 0 10px 0 10px;

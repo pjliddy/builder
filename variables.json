@@ -6,11 +6,11 @@
   , value: "#000" // actual calculated value (use for local CSS)
   , varType: "color" // variable type = color
   , configType: "colorpicker" // config type determines controllor activity based on type
-  , displayValue: "#000000" // display value field (hex, @variable, or formula)
+  , output: "#000000" // display output field & LESS (hex, @variable, or formula)
   , variable: "" // @variable if specified
   , color: "#000000" // color picked
   , configFunction: "" // function chosen
-  , tint: "0" // tint value chosen
+  , tint: "0" // tint output chosen
 */
 
 variables = [
@@ -22,7 +22,7 @@ variables = [
     , value: "#337ab7"
     , varType: "color"
     , configType: "function"
-    , displayValue: "darken(#428bca, 6.5%)"
+    , output: "darken(#428bca, 6.5%)"
     , variable: ""
     , color: "#428bca"
     , configFunction: "darken"
@@ -36,7 +36,7 @@ variables = [
     , value: "#5cb85c"
     , varType: "color"
     , configType: "colorpicker"
-    , displayValue: "#5cb85c"
+    , output: "#5cb85c"
     , variable: ""
     , color: "#5cb85c"
     , configFunction: ""
@@ -50,7 +50,7 @@ variables = [
     , value: "#5bc0de"
     , varType: "color"
     , configType: "colorpicker"
-    , displayValue: "#5bc0de"
+    , output: "#5bc0de"
     , variable: ""
     , color: "#5bc0de"
     , configFunction: ""
@@ -64,7 +64,7 @@ variables = [
     , value: "#f0ad4e"
     , varType: "color"
     , configType: "colorpicker"
-    , displayValue: "#f0ad4e"
+    , output: "#f0ad4e"
     , variable: ""
     , color: "#f0ad4e"
     , configFunction: ""
@@ -78,7 +78,7 @@ variables = [
     , value: "#d9534f"
     , varType: "color"
     , configType: "colorpicker"
-    , displayValue: "#d9534f"
+    , output: "#d9534f"
     , variable: ""
     , color: "#d9534f"
     , configFunction: ""
@@ -92,7 +92,7 @@ variables = [
     , value: "#000"
     , varType: "color"
     , configType: "colorpicker"
-    , displayValue: "#000000"
+    , output: "#000000"
     , variable: ""
     , color: "#000000"
     , configFunction: ""
@@ -103,10 +103,10 @@ variables = [
     , category: "Colors"
     , subcategory: "Grays"
     , displayName: "Darker Gray"
-    , value: "#222"
+    // , value: "#222"
     , varType: "color"
     , configType: "function"
-    , displayValue: "lighten(@gray-base, 13.5%)"
+    , output: "lighten(@gray-base, 13.5%)"
     , variable: "@gray-base"
     , color: ""
     , configFunction: "lighten"
@@ -120,7 +120,7 @@ variables = [
     , value: "#333"
     , varType: "color"
     , configType: "function"
-    , displayValue: "lighten(@gray-base, 20%)"
+    , output: "lighten(@gray-base, 20%)"
     , variable: "@gray-base"
     , color: ""
     , configFunction: "lighten"
@@ -134,7 +134,7 @@ variables = [
     , value: "#555"
     , varType: "color"
     , configType: "function"
-    , displayValue: "lighten(@gray-base, 33.5%)"
+    , output: "lighten(@gray-base, 33.5%)"
     , variable: "@gray-base"
     , color: ""
     , configFunction: "lighten"
@@ -148,7 +148,7 @@ variables = [
     , value: "#777"
     , varType: "color"
     , configType: "function"
-    , displayValue: "lighten(@gray-base, 46.7%)"
+    , output: "lighten(@gray-base, 46.7%)"
     , variable: "@gray-base"
     , color: ""
     , configFunction: "lighten"
@@ -162,7 +162,7 @@ variables = [
     , value: "#eee"
     , varType: "color"
     , configType: "function"
-    , displayValue: "lighten(@gray-base, 93.5%)"
+    , output: "lighten(@gray-base, 93.5%)"
     , variable: "@gray-base"
     , color: ""
     , configFunction: "lighten"
@@ -176,7 +176,7 @@ variables = [
     , value: "#fff"
     , varType: "color"
     , configType: "colorpicker"
-    , displayValue: "#ffffff"
+    , output: "#ffffff"
     , variable: ""
     , color: "#ffffff"
     , configFunction: ""
@@ -190,7 +190,7 @@ variables = [
     , value: "#333333"
     , varType: "color"
     , configType: "colorpicker"
-    , displayValue: "@gray-dark"
+    , output: "@gray-dark"
     , variable: "@gray-dark"
     , color: ""
     , configFunction: ""
@@ -205,7 +205,7 @@ variables = [
     , value: "#337ab7"
     , varType: "color"
     , configType: "variable"
-    , displayValue: "@brand-primary"
+    , output: "@brand-primary"
     , variable: "@brand-primary"
     , color: ""
     , configFunction: ""
@@ -219,7 +219,7 @@ variables = [
     , value: "#22527b"
     , varType: "color"
     , configType: "function"
-    , displayValue: "darken(@link-color, 15%)"
+    , output: "darken(@link-color, 15%)"
     , variable: "@link-color"
     , color: ""
     , configFunction: "darken"
@@ -233,7 +233,7 @@ variables = [
     , value: "underline"
     , varType: "attribute"
     , configType: "attribute"
-    , displayValue: "underline"
+    , output: "underline"
     , variable: ""
     , color: ""
     , configFunction: ""
@@ -248,7 +248,7 @@ variables = [
     , value: "'Helvetica Neue', Helvetica, Arial, sans-serif"
     , varType: "font-family"
     , configType: "fontfamily"
-    , displayValue: "'Helvetica Neue', Helvetica, Arial, sans-serif"
+    , output: "'Helvetica Neue', Helvetica, Arial, sans-serif"
     , variable: ""
     }
   , {
@@ -260,7 +260,7 @@ variables = [
     , varType: "font-family"
     , configType: "fontfamily" // or variable
 
-    , displayValue: "Georgia, 'Times New Roman', Times, serif"
+    , output: "Georgia, 'Times New Roman', Times, serif"
     , variable: ""
     }
   , {
@@ -271,8 +271,7 @@ variables = [
     , value: "Menlo, Monaco, Consolas, 'Courier New', monospace"
     , varType: "font-family"
     , configType: "fontfamily" // or variable
-
-    , displayValue: "Menlo, Monaco, Consolas, 'Courier New', monospace"
+    , output: "Menlo, Monaco, Consolas, 'Courier New', monospace"
     , variable: ""
     }
   , {
@@ -283,8 +282,7 @@ variables = [
     , value: "'Helvetica Neue', Helvetica, Arial, sans-serif"
     , varType: "font-family"
     , configType: "variable" // or variable
-
-    , displayValue: "@font-family-sans-serif"
+    , output: "@font-family-sans-serif"
     , variable: "@font-family-sans-serif"
     }
 /*
@@ -296,7 +294,7 @@ variables = [
     , value: "14"
     , varType: "font-size"
     , configType: "number"
-    , displayValue: "14px"
+    , output: "14px"
     , variable: ""
     }
   , {
@@ -307,7 +305,7 @@ variables = [
     , value: "17.5"
     , varType: "font-size"
     , configType: "number"
-    , displayValue: "17.5px"
+    , output: "17.5px"
     , variable: ""
     }
   , {
@@ -318,7 +316,7 @@ variables = [
     , value: "11.9"
     , varType: "font-size"
     , configType: "number"
-    , displayValue: "11.9px"
+    , output: "11.9px"
     , variable: ""
     }
 */

@@ -1,372 +1,372 @@
 defaults = [
-  { name:'@link-color', displayValue: '@brand-primary'}
-,{ name:'@link-hover-color', displayValue: 'darken(@link-color, 15%)'}
-,{ name:'@link-hover-decoration', displayValue: 'underline'}
-,{ name:'@font-size-base', displayValue: '14px'}
-,{ name:'@font-size-large', displayValue: 'ceil((@font-size-base * 1.25))'}
-,{ name:'@font-size-small', displayValue: 'ceil((@font-size-base * 0.85))'}
-,{ name:'@font-size-h1', displayValue: 'floor((@font-size-base * 2.6))'}
-,{ name:'@font-size-h2', displayValue: 'floor((@font-size-base * 2.15))'}
-,{ name:'@font-size-h3', displayValue: 'ceil((@font-size-base * 1.7))'}
-,{ name:'@font-size-h4', displayValue: 'ceil((@font-size-base * 1.25))'}
-,{ name:'@font-size-h5', displayValue: '@font-size-base'}
-,{ name:'@font-size-h6', displayValue: 'ceil((@font-size-base * 0.85))'}
-,{ name:'@line-height-base', displayValue: '1.428571429'}
-,{ name:'@line-height-computed', displayValue: 'floor((@font-size-base * @line-height-base))'}
-,{ name:'@headings-font-family', displayValue: 'inherit'}
-,{ name:'@headings-font-weight', displayValue: '500'}
-,{ name:'@headings-line-height', displayValue: '1.1'}
-,{ name:'@headings-color', displayValue: 'inherit'}
-,{ name:'@icon-font-path', displayValue: '"../fonts/"'}
-,{ name:'@icon-font-name', displayValue: '"glyphicons-halflings-regular"'}
-,{ name:'@icon-font-svg-id', displayValue: '"glyphicons_halflingsregular"'}
-,{ name:'@padding-base-vertical', displayValue: '6px'}
-,{ name:'@padding-base-horizontal', displayValue: '12px'}
-,{ name:'@padding-large-vertical', displayValue: '10px'}
-,{ name:'@padding-large-horizontal', displayValue: '16px'}
-,{ name:'@padding-small-vertical', displayValue: '5px'}
-,{ name:'@padding-small-horizontal', displayValue: '10px'}
-,{ name:'@padding-xs-vertical', displayValue: '1px'}
-,{ name:'@padding-xs-horizontal', displayValue: '5px'}
-,{ name:'@line-height-large', displayValue: '1.3333333'}
-,{ name:'@line-height-small', displayValue: '1.5'}
-,{ name:'@border-radius-base', displayValue: '4px'}
-,{ name:'@border-radius-large', displayValue: '6px'}
-,{ name:'@border-radius-small', displayValue: '3px'}
-,{ name:'@component-active-color', displayValue: '#fff'}
-,{ name:'@component-active-bg', displayValue: '@brand-primary'}
-,{ name:'@caret-width-base', displayValue: '4px'}
-,{ name:'@caret-width-large', displayValue: '5px'}
-,{ name:'@table-cell-padding', displayValue: '8px'}
-,{ name:'@table-condensed-cell-padding', displayValue: '5px'}
-,{ name:'@table-bg', displayValue: 'transparent'}
-,{ name:'@table-bg-accent', displayValue: '#f9f9f9'}
-,{ name:'@table-bg-hover', displayValue: '#f5f5f5'}
-,{ name:'@table-bg-active', displayValue: '@table-bg-hover'}
-,{ name:'@table-border-color', displayValue: '#ddd'}
-,{ name:'@btn-font-weight', displayValue: 'normal'}
-,{ name:'@btn-default-color', displayValue: '#333'}
-,{ name:'@btn-default-bg', displayValue: '#fff'}
-,{ name:'@btn-default-border', displayValue: '#ccc'}
-,{ name:'@btn-primary-color', displayValue: '#fff'}
-,{ name:'@btn-primary-bg', displayValue: '@brand-primary'}
-,{ name:'@btn-primary-border', displayValue: 'darken(@btn-primary-bg, 5%)'}
-,{ name:'@btn-success-color', displayValue: '#fff'}
-,{ name:'@btn-success-bg', displayValue: '@brand-success'}
-,{ name:'@btn-success-border', displayValue: 'darken(@btn-success-bg, 5%)'}
-,{ name:'@btn-info-color', displayValue: '#fff'}
-,{ name:'@btn-info-bg', displayValue: '@brand-info'}
-,{ name:'@btn-info-border', displayValue: 'darken(@btn-info-bg, 5%)'}
-,{ name:'@btn-warning-color', displayValue: '#fff'}
-,{ name:'@btn-warning-bg', displayValue: '@brand-warning'}
-,{ name:'@btn-warning-border', displayValue: 'darken(@btn-warning-bg, 5%)'}
-,{ name:'@btn-danger-color', displayValue: '#fff'}
-,{ name:'@btn-danger-bg', displayValue: '@brand-danger'}
-,{ name:'@btn-danger-border', displayValue: 'darken(@btn-danger-bg, 5%)'}
-,{ name:'@btn-link-disabled-color', displayValue: '@gray-light'}
-,{ name:'@btn-border-radius-base', displayValue: '@border-radius-base'}
-,{ name:'@btn-border-radius-large', displayValue: '@border-radius-large'}
-,{ name:'@btn-border-radius-small', displayValue: '@border-radius-small'}
-,{ name:'@input-bg', displayValue: '#fff'}
-,{ name:'@input-bg-disabled', displayValue: '@gray-lighter'}
-,{ name:'@input-color', displayValue: '@gray'}
-,{ name:'@input-border', displayValue: '#ccc'}
-,{ name:'@input-border-radius', displayValue: '@border-radius-base'}
-,{ name:'@input-border-radius-large', displayValue: '@border-radius-large'}
-,{ name:'@input-border-radius-small', displayValue: '@border-radius-small'}
-,{ name:'@input-border-focus', displayValue: '#66afe9'}
-,{ name:'@input-color-placeholder', displayValue: '#999'}
-,{ name:'@input-height-base', displayValue: '(@line-height-computed + (@padding-base-vertical * 2) + 2)'}
-,{ name:'@input-height-large', displayValue: '(ceil(@font-size-large * @line-height-large) + (@padding-large-vertical * 2) + 2)'}
-,{ name:'@input-height-small', displayValue: '(floor(@font-size-small * @line-height-small) + (@padding-small-vertical * 2) + 2)'}
-,{ name:'@form-group-margin-bottom', displayValue: '15px'}
-,{ name:'@legend-color', displayValue: '@gray-dark'}
-,{ name:'@legend-border-color', displayValue: '#e5e5e5'}
-,{ name:'@input-group-addon-bg', displayValue: '@gray-lighter'}
-,{ name:'@input-group-addon-border-color', displayValue: '@input-border'}
-,{ name:'@cursor-disabled', displayValue: 'not-allowed'}
-,{ name:'@dropdown-bg', displayValue: '#fff'}
-,{ name:'@dropdown-border', displayValue: 'rgba(0,0,0,.15)'}
-,{ name:'@dropdown-fallback-border', displayValue: '#ccc'}
-,{ name:'@dropdown-divider-bg', displayValue: '#e5e5e5'}
-,{ name:'@dropdown-link-color', displayValue: '@gray-dark'}
-,{ name:'@dropdown-link-hover-color', displayValue: 'darken(@gray-dark, 5%)'}
-,{ name:'@dropdown-link-hover-bg', displayValue: '#f5f5f5'}
-,{ name:'@dropdown-link-active-color', displayValue: '@component-active-color'}
-,{ name:'@dropdown-link-active-bg', displayValue: '@component-active-bg'}
-,{ name:'@dropdown-link-disabled-color', displayValue: '@gray-light'}
-,{ name:'@dropdown-header-color', displayValue: '@gray-light'}
-,{ name:'@dropdown-caret-color', displayValue: '#000'}
-,{ name:'@zindex-navbar', displayValue: '1000'}
-,{ name:'@zindex-dropdown', displayValue: '1000'}
-,{ name:'@zindex-popover', displayValue: '1060'}
-,{ name:'@zindex-tooltip', displayValue: '1070'}
-,{ name:'@zindex-navbar-fixed', displayValue: '1030'}
-,{ name:'@zindex-modal-background', displayValue: '1040'}
-,{ name:'@zindex-modal', displayValue: '1050'}
-,{ name:'@screen-xs', displayValue: '480px'}
-,{ name:'@screen-xs-min', displayValue: '@screen-xs'}
-,{ name:'@screen-phone', displayValue: '@screen-xs-min'}
-,{ name:'@screen-sm', displayValue: '768px'}
-,{ name:'@screen-sm-min', displayValue: '@screen-sm'}
-,{ name:'@screen-tablet', displayValue: '@screen-sm-min'}
-,{ name:'@screen-md', displayValue: '992px'}
-,{ name:'@screen-md-min', displayValue: '@screen-md'}
-,{ name:'@screen-desktop', displayValue: '@screen-md-min'}
-,{ name:'@screen-lg', displayValue: '1200px'}
-,{ name:'@screen-lg-min', displayValue: '@screen-lg'}
-,{ name:'@screen-lg-desktop', displayValue: '@screen-lg-min'}
-,{ name:'@screen-xs-max', displayValue: '(@screen-sm-min - 1)'}
-,{ name:'@screen-sm-max', displayValue: '(@screen-md-min - 1)'}
-,{ name:'@screen-md-max', displayValue: '(@screen-lg-min - 1)'}
-,{ name:'@grid-columns', displayValue: '12'}
-,{ name:'@grid-gutter-width', displayValue: '30px'}
-,{ name:'@grid-float-breakpoint', displayValue: '@screen-sm-min'}
-,{ name:'@grid-float-breakpoint-max', displayValue: '(@grid-float-breakpoint - 1)'}
-,{ name:'@container-tablet', displayValue: '(720px + @grid-gutter-width)'}
-,{ name:'@container-sm', displayValue: '@container-tablet'}
-,{ name:'@container-desktop', displayValue: '(940px + @grid-gutter-width)'}
-,{ name:'@container-md', displayValue: '@container-desktop'}
-,{ name:'@container-large-desktop', displayValue: '(1140px + @grid-gutter-width)'}
-,{ name:'@container-lg', displayValue: '@container-large-desktop'}
-,{ name:'@navbar-height', displayValue: '50px'}
-,{ name:'@navbar-margin-bottom', displayValue: '@line-height-computed'}
-,{ name:'@navbar-border-radius', displayValue: '@border-radius-base'}
-,{ name:'@navbar-padding-horizontal', displayValue: 'floor((@grid-gutter-width / 2))'}
-,{ name:'@navbar-padding-vertical', displayValue: '((@navbar-height - @line-height-computed) / 2)'}
-,{ name:'@navbar-collapse-max-height', displayValue: '340px'}
-,{ name:'@navbar-default-color', displayValue: '#777'}
-,{ name:'@navbar-default-bg', displayValue: '#f8f8f8'}
-,{ name:'@navbar-default-border', displayValue: 'darken(@navbar-default-bg, 6.5%)'}
-,{ name:'@navbar-default-link-color', displayValue: '#777'}
-,{ name:'@navbar-default-link-hover-color', displayValue: '#333'}
-,{ name:'@navbar-default-link-hover-bg', displayValue: 'transparent'}
-,{ name:'@navbar-default-link-active-color', displayValue: '#555'}
-,{ name:'@navbar-default-link-active-bg', displayValue: 'darken(@navbar-default-bg, 6.5%)'}
-,{ name:'@navbar-default-link-disabled-color', displayValue: '#ccc'}
-,{ name:'@navbar-default-link-disabled-bg', displayValue: 'transparent'}
-,{ name:'@navbar-default-brand-color', displayValue: '@navbar-default-link-color'}
-,{ name:'@navbar-default-brand-hover-color', displayValue: 'darken(@navbar-default-brand-color, 10%)'}
-,{ name:'@navbar-default-brand-hover-bg', displayValue: 'transparent'}
-,{ name:'@navbar-default-toggle-hover-bg', displayValue: '#ddd'}
-,{ name:'@navbar-default-toggle-icon-bar-bg', displayValue: '#888'}
-,{ name:'@navbar-default-toggle-border-color', displayValue: '#ddd'}
-,{ name:'@navbar-inverse-color', displayValue: 'lighten(@gray-light, 15%)'}
-,{ name:'@navbar-inverse-bg', displayValue: '#222'}
-,{ name:'@navbar-inverse-border', displayValue: 'darken(@navbar-inverse-bg, 10%)'}
-,{ name:'@navbar-inverse-link-color', displayValue: 'lighten(@gray-light, 15%)'}
-,{ name:'@navbar-inverse-link-hover-color', displayValue: '#fff'}
-,{ name:'@navbar-inverse-link-hover-bg', displayValue: 'transparent'}
-,{ name:'@navbar-inverse-link-active-color', displayValue: '@navbar-inverse-link-hover-color'}
-,{ name:'@navbar-inverse-link-active-bg', displayValue: 'darken(@navbar-inverse-bg, 10%)'}
-,{ name:'@navbar-inverse-link-disabled-color', displayValue: '#444'}
-,{ name:'@navbar-inverse-link-disabled-bg', displayValue: 'transparent'}
-,{ name:'@navbar-inverse-brand-color', displayValue: '@navbar-inverse-link-color'}
-,{ name:'@navbar-inverse-brand-hover-color', displayValue: '#fff'}
-,{ name:'@navbar-inverse-brand-hover-bg', displayValue: 'transparent'}
-,{ name:'@navbar-inverse-toggle-hover-bg', displayValue: '#333'}
-,{ name:'@navbar-inverse-toggle-icon-bar-bg', displayValue: '#fff'}
-,{ name:'@navbar-inverse-toggle-border-color', displayValue: '#333'}
-,{ name:'@nav-link-padding', displayValue: '10px 15px'}
-,{ name:'@nav-link-hover-bg', displayValue: '@gray-lighter'}
-,{ name:'@nav-disabled-link-color', displayValue: '@gray-light'}
-,{ name:'@nav-disabled-link-hover-color', displayValue: '@gray-light'}
-,{ name:'@nav-tabs-border-color', displayValue: '#ddd'}
-,{ name:'@nav-tabs-link-hover-border-color', displayValue: '@gray-lighter'}
-,{ name:'@nav-tabs-active-link-hover-bg', displayValue: '@body-bg'}
-,{ name:'@nav-tabs-active-link-hover-color', displayValue: '@gray'}
-,{ name:'@nav-tabs-active-link-hover-border-color', displayValue: '#ddd'}
-,{ name:'@nav-tabs-justified-link-border-color', displayValue: '#ddd'}
-,{ name:'@nav-tabs-justified-active-link-border-color', displayValue: '@body-bg'}
-,{ name:'@nav-pills-border-radius', displayValue: '@border-radius-base'}
-,{ name:'@nav-pills-active-link-hover-bg', displayValue: '@component-active-bg'}
-,{ name:'@nav-pills-active-link-hover-color', displayValue: '@component-active-color'}
-,{ name:'@pagination-color', displayValue: '@link-color'}
-,{ name:'@pagination-bg', displayValue: '#fff'}
-,{ name:'@pagination-border', displayValue: '#ddd'}
-,{ name:'@pagination-hover-color', displayValue: '@link-hover-color'}
-,{ name:'@pagination-hover-bg', displayValue: '@gray-lighter'}
-,{ name:'@pagination-hover-border', displayValue: '#ddd'}
-,{ name:'@pagination-active-color', displayValue: '#fff'}
-,{ name:'@pagination-active-bg', displayValue: '@brand-primary'}
-,{ name:'@pagination-active-border', displayValue: '@brand-primary'}
-,{ name:'@pagination-disabled-color', displayValue: '@gray-light'}
-,{ name:'@pagination-disabled-bg', displayValue: '#fff'}
-,{ name:'@pagination-disabled-border', displayValue: '#ddd'}
-,{ name:'@pager-bg', displayValue: '@pagination-bg'}
-,{ name:'@pager-border', displayValue: '@pagination-border'}
-,{ name:'@pager-border-radius', displayValue: '15px'}
-,{ name:'@pager-hover-bg', displayValue: '@pagination-hover-bg'}
-,{ name:'@pager-active-bg', displayValue: '@pagination-active-bg'}
-,{ name:'@pager-active-color', displayValue: '@pagination-active-color'}
-,{ name:'@pager-disabled-color', displayValue: '@pagination-disabled-color'}
-,{ name:'@jumbotron-padding', displayValue: '30px'}
-,{ name:'@jumbotron-color', displayValue: 'inherit'}
-,{ name:'@jumbotron-bg', displayValue: '@gray-lighter'}
-,{ name:'@jumbotron-heading-color', displayValue: 'inherit'}
-,{ name:'@jumbotron-font-size', displayValue: 'ceil((@font-size-base * 1.5))'}
-,{ name:'@jumbotron-heading-font-size', displayValue: 'ceil((@font-size-base * 4.5))'}
-,{ name:'@state-success-text', displayValue: '#3c763d'}
-,{ name:'@state-success-bg', displayValue: '#dff0d8'}
-,{ name:'@state-success-border', displayValue: 'darken(spin(@state-success-bg, -10), 5%)'}
-,{ name:'@state-info-text', displayValue: '#31708f'}
-,{ name:'@state-info-bg', displayValue: '#d9edf7'}
-,{ name:'@state-info-border', displayValue: 'darken(spin(@state-info-bg, -10), 7%)'}
-,{ name:'@state-warning-text', displayValue: '#8a6d3b'}
-,{ name:'@state-warning-bg', displayValue: '#fcf8e3'}
-,{ name:'@state-warning-border', displayValue: 'darken(spin(@state-warning-bg, -10), 5%)'}
-,{ name:'@state-danger-text', displayValue: '#a94442'}
-,{ name:'@state-danger-bg', displayValue: '#f2dede'}
-,{ name:'@state-danger-border', displayValue: 'darken(spin(@state-danger-bg, -10), 5%)'}
-,{ name:'@tooltip-max-width', displayValue: '200px'}
-,{ name:'@tooltip-color', displayValue: '#fff'}
-,{ name:'@tooltip-bg', displayValue: '#000'}
-,{ name:'@tooltip-opacity', displayValue: '0.9'}
-,{ name:'@tooltip-arrow-width', displayValue: '5px'}
-,{ name:'@tooltip-arrow-color', displayValue: '@tooltip-bg'}
-,{ name:'@popover-bg', displayValue: '#fff'}
-,{ name:'@popover-max-width', displayValue: '276px'}
-,{ name:'@popover-border-color', displayValue: 'rgba(0,0,0,.2)'}
-,{ name:'@popover-fallback-border-color', displayValue: '#ccc'}
-,{ name:'@popover-title-bg', displayValue: 'darken(@popover-bg, 3%)'}
-,{ name:'@popover-arrow-width', displayValue: '10px'}
-,{ name:'@popover-arrow-color', displayValue: '@popover-bg'}
-,{ name:'@popover-arrow-outer-width', displayValue: '(@popover-arrow-width + 1)'}
-,{ name:'@popover-arrow-outer-color', displayValue: 'fadein(@popover-border-color, 5%)'}
-,{ name:'@popover-arrow-outer-fallback-color', displayValue: 'darken(@popover-fallback-border-color, 20%)'}
-,{ name:'@label-default-bg', displayValue: '@gray-light'}
-,{ name:'@label-primary-bg', displayValue: '@brand-primary'}
-,{ name:'@label-success-bg', displayValue: '@brand-success'}
-,{ name:'@label-info-bg', displayValue: '@brand-info'}
-,{ name:'@label-warning-bg', displayValue: '@brand-warning'}
-,{ name:'@label-danger-bg', displayValue: '@brand-danger'}
-,{ name:'@label-color', displayValue: '#fff'}
-,{ name:'@label-link-hover-color', displayValue: '#fff'}
-,{ name:'@modal-inner-padding', displayValue: '15px'}
-,{ name:'@modal-title-padding', displayValue: '15px'}
-,{ name:'@modal-title-line-height', displayValue: '@line-height-base'}
-,{ name:'@modal-content-bg', displayValue: '#fff'}
-,{ name:'@modal-content-border-color', displayValue: 'rgba(0,0,0,.2)'}
-,{ name:'@modal-content-fallback-border-color', displayValue: '#999'}
-,{ name:'@modal-backdrop-bg', displayValue: '#000'}
-,{ name:'@modal-backdrop-opacity', displayValue: '0.5'}
-,{ name:'@modal-header-border-color', displayValue: '#e5e5e5'}
-,{ name:'@modal-footer-border-color', displayValue: '@modal-header-border-color'}
-,{ name:'@modal-lg', displayValue: '900px'}
-,{ name:'@modal-md', displayValue: '600px'}
-,{ name:'@modal-sm', displayValue: '300px'}
-,{ name:'@alert-padding', displayValue: '15px'}
-,{ name:'@alert-border-radius', displayValue: '@border-radius-base'}
-,{ name:'@alert-link-font-weight', displayValue: 'bold'}
-,{ name:'@alert-success-bg', displayValue: '@state-success-bg'}
-,{ name:'@alert-success-text', displayValue: '@state-success-text'}
-,{ name:'@alert-success-border', displayValue: '@state-success-border'}
-,{ name:'@alert-info-bg', displayValue: '@state-info-bg'}
-,{ name:'@alert-info-text', displayValue: '@state-info-text'}
-,{ name:'@alert-info-border', displayValue: '@state-info-border'}
-,{ name:'@alert-warning-bg', displayValue: '@state-warning-bg'}
-,{ name:'@alert-warning-text', displayValue: '@state-warning-text'}
-,{ name:'@alert-warning-border', displayValue: '@state-warning-border'}
-,{ name:'@alert-danger-bg', displayValue: '@state-danger-bg'}
-,{ name:'@alert-danger-text', displayValue: '@state-danger-text'}
-,{ name:'@alert-danger-border', displayValue: '@state-danger-border'}
-,{ name:'@progress-bg', displayValue: '#f5f5f5'}
-,{ name:'@progress-bar-color', displayValue: '#fff'}
-,{ name:'@progress-border-radius', displayValue: '@border-radius-base'}
-,{ name:'@progress-bar-bg', displayValue: '@brand-primary'}
-,{ name:'@progress-bar-success-bg', displayValue: '@brand-success'}
-,{ name:'@progress-bar-warning-bg', displayValue: '@brand-warning'}
-,{ name:'@progress-bar-danger-bg', displayValue: '@brand-danger'}
-,{ name:'@progress-bar-info-bg', displayValue: '@brand-info'}
-,{ name:'@list-group-bg', displayValue: '#fff'}
-,{ name:'@list-group-border', displayValue: '#ddd'}
-,{ name:'@list-group-border-radius', displayValue: '@border-radius-base'}
-,{ name:'@list-group-hover-bg', displayValue: '#f5f5f5'}
-,{ name:'@list-group-active-color', displayValue: '@component-active-color'}
-,{ name:'@list-group-active-bg', displayValue: '@component-active-bg'}
-,{ name:'@list-group-active-border', displayValue: '@list-group-active-bg'}
-,{ name:'@list-group-active-text-color', displayValue: 'lighten(@list-group-active-bg, 40%)'}
-,{ name:'@list-group-disabled-color', displayValue: '@gray-light'}
-,{ name:'@list-group-disabled-bg', displayValue: '@gray-lighter'}
-,{ name:'@list-group-disabled-text-color', displayValue: '@list-group-disabled-color'}
-,{ name:'@list-group-link-color', displayValue: '#555'}
-,{ name:'@list-group-link-hover-color', displayValue: '@list-group-link-color'}
-,{ name:'@list-group-link-heading-color', displayValue: '#333'}
-,{ name:'@panel-bg', displayValue: '#fff'}
-,{ name:'@panel-body-padding', displayValue: '15px'}
-,{ name:'@panel-heading-padding', displayValue: '10px 15px'}
-,{ name:'@panel-footer-padding', displayValue: '@panel-heading-padding'}
-,{ name:'@panel-border-radius', displayValue: '@border-radius-base'}
-,{ name:'@panel-inner-border', displayValue: '#ddd'}
-,{ name:'@panel-footer-bg', displayValue: '#f5f5f5'}
-,{ name:'@panel-default-text', displayValue: '@gray-dark'}
-,{ name:'@panel-default-border', displayValue: '#ddd'}
-,{ name:'@panel-default-heading-bg', displayValue: '#f5f5f5'}
-,{ name:'@panel-primary-text', displayValue: '#fff'}
-,{ name:'@panel-primary-border', displayValue: '@brand-primary'}
-,{ name:'@panel-primary-heading-bg', displayValue: '@brand-primary'}
-,{ name:'@panel-success-text', displayValue: '@state-success-text'}
-,{ name:'@panel-success-border', displayValue: '@state-success-border'}
-,{ name:'@panel-success-heading-bg', displayValue: '@state-success-bg'}
-,{ name:'@panel-info-text', displayValue: '@state-info-text'}
-,{ name:'@panel-info-border', displayValue: '@state-info-border'}
-,{ name:'@panel-info-heading-bg', displayValue: '@state-info-bg'}
-,{ name:'@panel-warning-text', displayValue: '@state-warning-text'}
-,{ name:'@panel-warning-border', displayValue: '@state-warning-border'}
-,{ name:'@panel-warning-heading-bg', displayValue: '@state-warning-bg'}
-,{ name:'@panel-danger-text', displayValue: '@state-danger-text'}
-,{ name:'@panel-danger-border', displayValue: '@state-danger-border'}
-,{ name:'@panel-danger-heading-bg', displayValue: '@state-danger-bg'}
-,{ name:'@thumbnail-padding', displayValue: '4px'}
-,{ name:'@thumbnail-bg', displayValue: '@body-bg'}
-,{ name:'@thumbnail-border', displayValue: '#ddd'}
-,{ name:'@thumbnail-border-radius', displayValue: '@border-radius-base'}
-,{ name:'@thumbnail-caption-color', displayValue: '@text-color'}
-,{ name:'@thumbnail-caption-padding', displayValue: '9px'}
-,{ name:'@well-bg', displayValue: '#f5f5f5'}
-,{ name:'@well-border', displayValue: 'darken(@well-bg, 7%)'}
-,{ name:'@badge-color', displayValue: '#fff'}
-,{ name:'@badge-link-hover-color', displayValue: '#fff'}
-,{ name:'@badge-bg', displayValue: '@gray-light'}
-,{ name:'@badge-active-color', displayValue: '@link-color'}
-,{ name:'@badge-active-bg', displayValue: '#fff'}
-,{ name:'@badge-font-weight', displayValue: 'bold'}
-,{ name:'@badge-line-height', displayValue: '1'}
-,{ name:'@badge-border-radius', displayValue: '10px'}
-,{ name:'@breadcrumb-padding-vertical', displayValue: '8px'}
-,{ name:'@breadcrumb-padding-horizontal', displayValue: '15px'}
-,{ name:'@breadcrumb-bg', displayValue: '#f5f5f5'}
-,{ name:'@breadcrumb-color', displayValue: '#ccc'}
-,{ name:'@breadcrumb-active-color', displayValue: '@gray-light'}
-,{ name:'@breadcrumb-separator', displayValue: '"/"'}
-,{ name:'@carousel-text-shadow', displayValue: '0 1px 2px rgba(0,0,0,.6)'}
-,{ name:'@carousel-control-color', displayValue: '#fff'}
-,{ name:'@carousel-control-width', displayValue: '0.15'}
-,{ name:'@carousel-control-opacity', displayValue: '0.5'}
-,{ name:'@carousel-control-font-size', displayValue: '20px'}
-,{ name:'@carousel-indicator-active-bg', displayValue: '#fff'}
-,{ name:'@carousel-indicator-border-color', displayValue: '#fff'}
-,{ name:'@carousel-caption-color', displayValue: '#fff'}
-,{ name:'@close-font-weight', displayValue: 'bold'}
-,{ name:'@close-color', displayValue: '#000'}
-,{ name:'@close-text-shadow', displayValue: '0 1px 0 #fff'}
-,{ name:'@code-color', displayValue: '#c7254e'}
-,{ name:'@code-bg', displayValue: '#f9f2f4'}
-,{ name:'@kbd-color', displayValue: '#fff'}
-,{ name:'@kbd-bg', displayValue: '#333'}
-,{ name:'@pre-bg', displayValue: '#f5f5f5'}
-,{ name:'@pre-color', displayValue: '@gray-dark'}
-,{ name:'@pre-border-color', displayValue: '#ccc'}
-,{ name:'@pre-scrollable-max-height', displayValue: '340px'}
-,{ name:'@component-offset-horizontal', displayValue: '180px'}
-,{ name:'@text-muted', displayValue: '@gray-light'}
-,{ name:'@abbr-border-color', displayValue: '@gray-light'}
-,{ name:'@headings-small-color', displayValue: '@gray-light'}
-,{ name:'@blockquote-small-color', displayValue: '@gray-light'}
-,{ name:'@blockquote-font-size', displayValue: '(@font-size-base * 1.25)'}
-,{ name:'@blockquote-border-color', displayValue: '@gray-lighter'}
-,{ name:'@page-header-border-color', displayValue: '@gray-lighter'}
-,{ name:'@dl-horizontal-offset', displayValue: '@component-offset-horizontal'}
-,{ name:'@dl-horizontal-breakpoint', displayValue: '@grid-float-breakpoint'}
-,{ name:'@hr-border', displayValue: '@gray-lighter'}
+  { name:'@link-color', output: '@brand-primary'}
+,{ name:'@link-hover-color', output: 'darken(@link-color, 15%)'}
+,{ name:'@link-hover-decoration', output: 'underline'}
+,{ name:'@font-size-base', output: '14px'}
+,{ name:'@font-size-large', output: 'ceil((@font-size-base * 1.25))'}
+,{ name:'@font-size-small', output: 'ceil((@font-size-base * 0.85))'}
+,{ name:'@font-size-h1', output: 'floor((@font-size-base * 2.6))'}
+,{ name:'@font-size-h2', output: 'floor((@font-size-base * 2.15))'}
+,{ name:'@font-size-h3', output: 'ceil((@font-size-base * 1.7))'}
+,{ name:'@font-size-h4', output: 'ceil((@font-size-base * 1.25))'}
+,{ name:'@font-size-h5', output: '@font-size-base'}
+,{ name:'@font-size-h6', output: 'ceil((@font-size-base * 0.85))'}
+,{ name:'@line-height-base', output: '1.428571429'}
+,{ name:'@line-height-computed', output: 'floor((@font-size-base * @line-height-base))'}
+,{ name:'@headings-font-family', output: 'inherit'}
+,{ name:'@headings-font-weight', output: '500'}
+,{ name:'@headings-line-height', output: '1.1'}
+,{ name:'@headings-color', output: 'inherit'}
+,{ name:'@icon-font-path', output: '"../fonts/"'}
+,{ name:'@icon-font-name', output: '"glyphicons-halflings-regular"'}
+,{ name:'@icon-font-svg-id', output: '"glyphicons_halflingsregular"'}
+,{ name:'@padding-base-vertical', output: '6px'}
+,{ name:'@padding-base-horizontal', output: '12px'}
+,{ name:'@padding-large-vertical', output: '10px'}
+,{ name:'@padding-large-horizontal', output: '16px'}
+,{ name:'@padding-small-vertical', output: '5px'}
+,{ name:'@padding-small-horizontal', output: '10px'}
+,{ name:'@padding-xs-vertical', output: '1px'}
+,{ name:'@padding-xs-horizontal', output: '5px'}
+,{ name:'@line-height-large', output: '1.3333333'}
+,{ name:'@line-height-small', output: '1.5'}
+,{ name:'@border-radius-base', output: '4px'}
+,{ name:'@border-radius-large', output: '6px'}
+,{ name:'@border-radius-small', output: '3px'}
+,{ name:'@component-active-color', output: '#fff'}
+,{ name:'@component-active-bg', output: '@brand-primary'}
+,{ name:'@caret-width-base', output: '4px'}
+,{ name:'@caret-width-large', output: '5px'}
+,{ name:'@table-cell-padding', output: '8px'}
+,{ name:'@table-condensed-cell-padding', output: '5px'}
+,{ name:'@table-bg', output: 'transparent'}
+,{ name:'@table-bg-accent', output: '#f9f9f9'}
+,{ name:'@table-bg-hover', output: '#f5f5f5'}
+,{ name:'@table-bg-active', output: '@table-bg-hover'}
+,{ name:'@table-border-color', output: '#ddd'}
+,{ name:'@btn-font-weight', output: 'normal'}
+,{ name:'@btn-default-color', output: '#333'}
+,{ name:'@btn-default-bg', output: '#fff'}
+,{ name:'@btn-default-border', output: '#ccc'}
+,{ name:'@btn-primary-color', output: '#fff'}
+,{ name:'@btn-primary-bg', output: '@brand-primary'}
+,{ name:'@btn-primary-border', output: 'darken(@btn-primary-bg, 5%)'}
+,{ name:'@btn-success-color', output: '#fff'}
+,{ name:'@btn-success-bg', output: '@brand-success'}
+,{ name:'@btn-success-border', output: 'darken(@btn-success-bg, 5%)'}
+,{ name:'@btn-info-color', output: '#fff'}
+,{ name:'@btn-info-bg', output: '@brand-info'}
+,{ name:'@btn-info-border', output: 'darken(@btn-info-bg, 5%)'}
+,{ name:'@btn-warning-color', output: '#fff'}
+,{ name:'@btn-warning-bg', output: '@brand-warning'}
+,{ name:'@btn-warning-border', output: 'darken(@btn-warning-bg, 5%)'}
+,{ name:'@btn-danger-color', output: '#fff'}
+,{ name:'@btn-danger-bg', output: '@brand-danger'}
+,{ name:'@btn-danger-border', output: 'darken(@btn-danger-bg, 5%)'}
+,{ name:'@btn-link-disabled-color', output: '@gray-light'}
+,{ name:'@btn-border-radius-base', output: '@border-radius-base'}
+,{ name:'@btn-border-radius-large', output: '@border-radius-large'}
+,{ name:'@btn-border-radius-small', output: '@border-radius-small'}
+,{ name:'@input-bg', output: '#fff'}
+,{ name:'@input-bg-disabled', output: '@gray-lighter'}
+,{ name:'@input-color', output: '@gray'}
+,{ name:'@input-border', output: '#ccc'}
+,{ name:'@input-border-radius', output: '@border-radius-base'}
+,{ name:'@input-border-radius-large', output: '@border-radius-large'}
+,{ name:'@input-border-radius-small', output: '@border-radius-small'}
+,{ name:'@input-border-focus', output: '#66afe9'}
+,{ name:'@input-color-placeholder', output: '#999'}
+,{ name:'@input-height-base', output: '(@line-height-computed + (@padding-base-vertical * 2) + 2)'}
+,{ name:'@input-height-large', output: '(ceil(@font-size-large * @line-height-large) + (@padding-large-vertical * 2) + 2)'}
+,{ name:'@input-height-small', output: '(floor(@font-size-small * @line-height-small) + (@padding-small-vertical * 2) + 2)'}
+,{ name:'@form-group-margin-bottom', output: '15px'}
+,{ name:'@legend-color', output: '@gray-dark'}
+,{ name:'@legend-border-color', output: '#e5e5e5'}
+,{ name:'@input-group-addon-bg', output: '@gray-lighter'}
+,{ name:'@input-group-addon-border-color', output: '@input-border'}
+,{ name:'@cursor-disabled', output: 'not-allowed'}
+,{ name:'@dropdown-bg', output: '#fff'}
+,{ name:'@dropdown-border', output: 'rgba(0,0,0,.15)'}
+,{ name:'@dropdown-fallback-border', output: '#ccc'}
+,{ name:'@dropdown-divider-bg', output: '#e5e5e5'}
+,{ name:'@dropdown-link-color', output: '@gray-dark'}
+,{ name:'@dropdown-link-hover-color', output: 'darken(@gray-dark, 5%)'}
+,{ name:'@dropdown-link-hover-bg', output: '#f5f5f5'}
+,{ name:'@dropdown-link-active-color', output: '@component-active-color'}
+,{ name:'@dropdown-link-active-bg', output: '@component-active-bg'}
+,{ name:'@dropdown-link-disabled-color', output: '@gray-light'}
+,{ name:'@dropdown-header-color', output: '@gray-light'}
+,{ name:'@dropdown-caret-color', output: '#000'}
+,{ name:'@zindex-navbar', output: '1000'}
+,{ name:'@zindex-dropdown', output: '1000'}
+,{ name:'@zindex-popover', output: '1060'}
+,{ name:'@zindex-tooltip', output: '1070'}
+,{ name:'@zindex-navbar-fixed', output: '1030'}
+,{ name:'@zindex-modal-background', output: '1040'}
+,{ name:'@zindex-modal', output: '1050'}
+,{ name:'@screen-xs', output: '480px'}
+,{ name:'@screen-xs-min', output: '@screen-xs'}
+,{ name:'@screen-phone', output: '@screen-xs-min'}
+,{ name:'@screen-sm', output: '768px'}
+,{ name:'@screen-sm-min', output: '@screen-sm'}
+,{ name:'@screen-tablet', output: '@screen-sm-min'}
+,{ name:'@screen-md', output: '992px'}
+,{ name:'@screen-md-min', output: '@screen-md'}
+,{ name:'@screen-desktop', output: '@screen-md-min'}
+,{ name:'@screen-lg', output: '1200px'}
+,{ name:'@screen-lg-min', output: '@screen-lg'}
+,{ name:'@screen-lg-desktop', output: '@screen-lg-min'}
+,{ name:'@screen-xs-max', output: '(@screen-sm-min - 1)'}
+,{ name:'@screen-sm-max', output: '(@screen-md-min - 1)'}
+,{ name:'@screen-md-max', output: '(@screen-lg-min - 1)'}
+,{ name:'@grid-columns', output: '12'}
+,{ name:'@grid-gutter-width', output: '30px'}
+,{ name:'@grid-float-breakpoint', output: '@screen-sm-min'}
+,{ name:'@grid-float-breakpoint-max', output: '(@grid-float-breakpoint - 1)'}
+,{ name:'@container-tablet', output: '(720px + @grid-gutter-width)'}
+,{ name:'@container-sm', output: '@container-tablet'}
+,{ name:'@container-desktop', output: '(940px + @grid-gutter-width)'}
+,{ name:'@container-md', output: '@container-desktop'}
+,{ name:'@container-large-desktop', output: '(1140px + @grid-gutter-width)'}
+,{ name:'@container-lg', output: '@container-large-desktop'}
+,{ name:'@navbar-height', output: '50px'}
+,{ name:'@navbar-margin-bottom', output: '@line-height-computed'}
+,{ name:'@navbar-border-radius', output: '@border-radius-base'}
+,{ name:'@navbar-padding-horizontal', output: 'floor((@grid-gutter-width / 2))'}
+,{ name:'@navbar-padding-vertical', output: '((@navbar-height - @line-height-computed) / 2)'}
+,{ name:'@navbar-collapse-max-height', output: '340px'}
+,{ name:'@navbar-default-color', output: '#777'}
+,{ name:'@navbar-default-bg', output: '#f8f8f8'}
+,{ name:'@navbar-default-border', output: 'darken(@navbar-default-bg, 6.5%)'}
+,{ name:'@navbar-default-link-color', output: '#777'}
+,{ name:'@navbar-default-link-hover-color', output: '#333'}
+,{ name:'@navbar-default-link-hover-bg', output: 'transparent'}
+,{ name:'@navbar-default-link-active-color', output: '#555'}
+,{ name:'@navbar-default-link-active-bg', output: 'darken(@navbar-default-bg, 6.5%)'}
+,{ name:'@navbar-default-link-disabled-color', output: '#ccc'}
+,{ name:'@navbar-default-link-disabled-bg', output: 'transparent'}
+,{ name:'@navbar-default-brand-color', output: '@navbar-default-link-color'}
+,{ name:'@navbar-default-brand-hover-color', output: 'darken(@navbar-default-brand-color, 10%)'}
+,{ name:'@navbar-default-brand-hover-bg', output: 'transparent'}
+,{ name:'@navbar-default-toggle-hover-bg', output: '#ddd'}
+,{ name:'@navbar-default-toggle-icon-bar-bg', output: '#888'}
+,{ name:'@navbar-default-toggle-border-color', output: '#ddd'}
+,{ name:'@navbar-inverse-color', output: 'lighten(@gray-light, 15%)'}
+,{ name:'@navbar-inverse-bg', output: '#222'}
+,{ name:'@navbar-inverse-border', output: 'darken(@navbar-inverse-bg, 10%)'}
+,{ name:'@navbar-inverse-link-color', output: 'lighten(@gray-light, 15%)'}
+,{ name:'@navbar-inverse-link-hover-color', output: '#fff'}
+,{ name:'@navbar-inverse-link-hover-bg', output: 'transparent'}
+,{ name:'@navbar-inverse-link-active-color', output: '@navbar-inverse-link-hover-color'}
+,{ name:'@navbar-inverse-link-active-bg', output: 'darken(@navbar-inverse-bg, 10%)'}
+,{ name:'@navbar-inverse-link-disabled-color', output: '#444'}
+,{ name:'@navbar-inverse-link-disabled-bg', output: 'transparent'}
+,{ name:'@navbar-inverse-brand-color', output: '@navbar-inverse-link-color'}
+,{ name:'@navbar-inverse-brand-hover-color', output: '#fff'}
+,{ name:'@navbar-inverse-brand-hover-bg', output: 'transparent'}
+,{ name:'@navbar-inverse-toggle-hover-bg', output: '#333'}
+,{ name:'@navbar-inverse-toggle-icon-bar-bg', output: '#fff'}
+,{ name:'@navbar-inverse-toggle-border-color', output: '#333'}
+,{ name:'@nav-link-padding', output: '10px 15px'}
+,{ name:'@nav-link-hover-bg', output: '@gray-lighter'}
+,{ name:'@nav-disabled-link-color', output: '@gray-light'}
+,{ name:'@nav-disabled-link-hover-color', output: '@gray-light'}
+,{ name:'@nav-tabs-border-color', output: '#ddd'}
+,{ name:'@nav-tabs-link-hover-border-color', output: '@gray-lighter'}
+,{ name:'@nav-tabs-active-link-hover-bg', output: '@body-bg'}
+,{ name:'@nav-tabs-active-link-hover-color', output: '@gray'}
+,{ name:'@nav-tabs-active-link-hover-border-color', output: '#ddd'}
+,{ name:'@nav-tabs-justified-link-border-color', output: '#ddd'}
+,{ name:'@nav-tabs-justified-active-link-border-color', output: '@body-bg'}
+,{ name:'@nav-pills-border-radius', output: '@border-radius-base'}
+,{ name:'@nav-pills-active-link-hover-bg', output: '@component-active-bg'}
+,{ name:'@nav-pills-active-link-hover-color', output: '@component-active-color'}
+,{ name:'@pagination-color', output: '@link-color'}
+,{ name:'@pagination-bg', output: '#fff'}
+,{ name:'@pagination-border', output: '#ddd'}
+,{ name:'@pagination-hover-color', output: '@link-hover-color'}
+,{ name:'@pagination-hover-bg', output: '@gray-lighter'}
+,{ name:'@pagination-hover-border', output: '#ddd'}
+,{ name:'@pagination-active-color', output: '#fff'}
+,{ name:'@pagination-active-bg', output: '@brand-primary'}
+,{ name:'@pagination-active-border', output: '@brand-primary'}
+,{ name:'@pagination-disabled-color', output: '@gray-light'}
+,{ name:'@pagination-disabled-bg', output: '#fff'}
+,{ name:'@pagination-disabled-border', output: '#ddd'}
+,{ name:'@pager-bg', output: '@pagination-bg'}
+,{ name:'@pager-border', output: '@pagination-border'}
+,{ name:'@pager-border-radius', output: '15px'}
+,{ name:'@pager-hover-bg', output: '@pagination-hover-bg'}
+,{ name:'@pager-active-bg', output: '@pagination-active-bg'}
+,{ name:'@pager-active-color', output: '@pagination-active-color'}
+,{ name:'@pager-disabled-color', output: '@pagination-disabled-color'}
+,{ name:'@jumbotron-padding', output: '30px'}
+,{ name:'@jumbotron-color', output: 'inherit'}
+,{ name:'@jumbotron-bg', output: '@gray-lighter'}
+,{ name:'@jumbotron-heading-color', output: 'inherit'}
+,{ name:'@jumbotron-font-size', output: 'ceil((@font-size-base * 1.5))'}
+,{ name:'@jumbotron-heading-font-size', output: 'ceil((@font-size-base * 4.5))'}
+,{ name:'@state-success-text', output: '#3c763d'}
+,{ name:'@state-success-bg', output: '#dff0d8'}
+,{ name:'@state-success-border', output: 'darken(spin(@state-success-bg, -10), 5%)'}
+,{ name:'@state-info-text', output: '#31708f'}
+,{ name:'@state-info-bg', output: '#d9edf7'}
+,{ name:'@state-info-border', output: 'darken(spin(@state-info-bg, -10), 7%)'}
+,{ name:'@state-warning-text', output: '#8a6d3b'}
+,{ name:'@state-warning-bg', output: '#fcf8e3'}
+,{ name:'@state-warning-border', output: 'darken(spin(@state-warning-bg, -10), 5%)'}
+,{ name:'@state-danger-text', output: '#a94442'}
+,{ name:'@state-danger-bg', output: '#f2dede'}
+,{ name:'@state-danger-border', output: 'darken(spin(@state-danger-bg, -10), 5%)'}
+,{ name:'@tooltip-max-width', output: '200px'}
+,{ name:'@tooltip-color', output: '#fff'}
+,{ name:'@tooltip-bg', output: '#000'}
+,{ name:'@tooltip-opacity', output: '0.9'}
+,{ name:'@tooltip-arrow-width', output: '5px'}
+,{ name:'@tooltip-arrow-color', output: '@tooltip-bg'}
+,{ name:'@popover-bg', output: '#fff'}
+,{ name:'@popover-max-width', output: '276px'}
+,{ name:'@popover-border-color', output: 'rgba(0,0,0,.2)'}
+,{ name:'@popover-fallback-border-color', output: '#ccc'}
+,{ name:'@popover-title-bg', output: 'darken(@popover-bg, 3%)'}
+,{ name:'@popover-arrow-width', output: '10px'}
+,{ name:'@popover-arrow-color', output: '@popover-bg'}
+,{ name:'@popover-arrow-outer-width', output: '(@popover-arrow-width + 1)'}
+,{ name:'@popover-arrow-outer-color', output: 'fadein(@popover-border-color, 5%)'}
+,{ name:'@popover-arrow-outer-fallback-color', output: 'darken(@popover-fallback-border-color, 20%)'}
+,{ name:'@label-default-bg', output: '@gray-light'}
+,{ name:'@label-primary-bg', output: '@brand-primary'}
+,{ name:'@label-success-bg', output: '@brand-success'}
+,{ name:'@label-info-bg', output: '@brand-info'}
+,{ name:'@label-warning-bg', output: '@brand-warning'}
+,{ name:'@label-danger-bg', output: '@brand-danger'}
+,{ name:'@label-color', output: '#fff'}
+,{ name:'@label-link-hover-color', output: '#fff'}
+,{ name:'@modal-inner-padding', output: '15px'}
+,{ name:'@modal-title-padding', output: '15px'}
+,{ name:'@modal-title-line-height', output: '@line-height-base'}
+,{ name:'@modal-content-bg', output: '#fff'}
+,{ name:'@modal-content-border-color', output: 'rgba(0,0,0,.2)'}
+,{ name:'@modal-content-fallback-border-color', output: '#999'}
+,{ name:'@modal-backdrop-bg', output: '#000'}
+,{ name:'@modal-backdrop-opacity', output: '0.5'}
+,{ name:'@modal-header-border-color', output: '#e5e5e5'}
+,{ name:'@modal-footer-border-color', output: '@modal-header-border-color'}
+,{ name:'@modal-lg', output: '900px'}
+,{ name:'@modal-md', output: '600px'}
+,{ name:'@modal-sm', output: '300px'}
+,{ name:'@alert-padding', output: '15px'}
+,{ name:'@alert-border-radius', output: '@border-radius-base'}
+,{ name:'@alert-link-font-weight', output: 'bold'}
+,{ name:'@alert-success-bg', output: '@state-success-bg'}
+,{ name:'@alert-success-text', output: '@state-success-text'}
+,{ name:'@alert-success-border', output: '@state-success-border'}
+,{ name:'@alert-info-bg', output: '@state-info-bg'}
+,{ name:'@alert-info-text', output: '@state-info-text'}
+,{ name:'@alert-info-border', output: '@state-info-border'}
+,{ name:'@alert-warning-bg', output: '@state-warning-bg'}
+,{ name:'@alert-warning-text', output: '@state-warning-text'}
+,{ name:'@alert-warning-border', output: '@state-warning-border'}
+,{ name:'@alert-danger-bg', output: '@state-danger-bg'}
+,{ name:'@alert-danger-text', output: '@state-danger-text'}
+,{ name:'@alert-danger-border', output: '@state-danger-border'}
+,{ name:'@progress-bg', output: '#f5f5f5'}
+,{ name:'@progress-bar-color', output: '#fff'}
+,{ name:'@progress-border-radius', output: '@border-radius-base'}
+,{ name:'@progress-bar-bg', output: '@brand-primary'}
+,{ name:'@progress-bar-success-bg', output: '@brand-success'}
+,{ name:'@progress-bar-warning-bg', output: '@brand-warning'}
+,{ name:'@progress-bar-danger-bg', output: '@brand-danger'}
+,{ name:'@progress-bar-info-bg', output: '@brand-info'}
+,{ name:'@list-group-bg', output: '#fff'}
+,{ name:'@list-group-border', output: '#ddd'}
+,{ name:'@list-group-border-radius', output: '@border-radius-base'}
+,{ name:'@list-group-hover-bg', output: '#f5f5f5'}
+,{ name:'@list-group-active-color', output: '@component-active-color'}
+,{ name:'@list-group-active-bg', output: '@component-active-bg'}
+,{ name:'@list-group-active-border', output: '@list-group-active-bg'}
+,{ name:'@list-group-active-text-color', output: 'lighten(@list-group-active-bg, 40%)'}
+,{ name:'@list-group-disabled-color', output: '@gray-light'}
+,{ name:'@list-group-disabled-bg', output: '@gray-lighter'}
+,{ name:'@list-group-disabled-text-color', output: '@list-group-disabled-color'}
+,{ name:'@list-group-link-color', output: '#555'}
+,{ name:'@list-group-link-hover-color', output: '@list-group-link-color'}
+,{ name:'@list-group-link-heading-color', output: '#333'}
+,{ name:'@panel-bg', output: '#fff'}
+,{ name:'@panel-body-padding', output: '15px'}
+,{ name:'@panel-heading-padding', output: '10px 15px'}
+,{ name:'@panel-footer-padding', output: '@panel-heading-padding'}
+,{ name:'@panel-border-radius', output: '@border-radius-base'}
+,{ name:'@panel-inner-border', output: '#ddd'}
+,{ name:'@panel-footer-bg', output: '#f5f5f5'}
+,{ name:'@panel-default-text', output: '@gray-dark'}
+,{ name:'@panel-default-border', output: '#ddd'}
+,{ name:'@panel-default-heading-bg', output: '#f5f5f5'}
+,{ name:'@panel-primary-text', output: '#fff'}
+,{ name:'@panel-primary-border', output: '@brand-primary'}
+,{ name:'@panel-primary-heading-bg', output: '@brand-primary'}
+,{ name:'@panel-success-text', output: '@state-success-text'}
+,{ name:'@panel-success-border', output: '@state-success-border'}
+,{ name:'@panel-success-heading-bg', output: '@state-success-bg'}
+,{ name:'@panel-info-text', output: '@state-info-text'}
+,{ name:'@panel-info-border', output: '@state-info-border'}
+,{ name:'@panel-info-heading-bg', output: '@state-info-bg'}
+,{ name:'@panel-warning-text', output: '@state-warning-text'}
+,{ name:'@panel-warning-border', output: '@state-warning-border'}
+,{ name:'@panel-warning-heading-bg', output: '@state-warning-bg'}
+,{ name:'@panel-danger-text', output: '@state-danger-text'}
+,{ name:'@panel-danger-border', output: '@state-danger-border'}
+,{ name:'@panel-danger-heading-bg', output: '@state-danger-bg'}
+,{ name:'@thumbnail-padding', output: '4px'}
+,{ name:'@thumbnail-bg', output: '@body-bg'}
+,{ name:'@thumbnail-border', output: '#ddd'}
+,{ name:'@thumbnail-border-radius', output: '@border-radius-base'}
+,{ name:'@thumbnail-caption-color', output: '@text-color'}
+,{ name:'@thumbnail-caption-padding', output: '9px'}
+,{ name:'@well-bg', output: '#f5f5f5'}
+,{ name:'@well-border', output: 'darken(@well-bg, 7%)'}
+,{ name:'@badge-color', output: '#fff'}
+,{ name:'@badge-link-hover-color', output: '#fff'}
+,{ name:'@badge-bg', output: '@gray-light'}
+,{ name:'@badge-active-color', output: '@link-color'}
+,{ name:'@badge-active-bg', output: '#fff'}
+,{ name:'@badge-font-weight', output: 'bold'}
+,{ name:'@badge-line-height', output: '1'}
+,{ name:'@badge-border-radius', output: '10px'}
+,{ name:'@breadcrumb-padding-vertical', output: '8px'}
+,{ name:'@breadcrumb-padding-horizontal', output: '15px'}
+,{ name:'@breadcrumb-bg', output: '#f5f5f5'}
+,{ name:'@breadcrumb-color', output: '#ccc'}
+,{ name:'@breadcrumb-active-color', output: '@gray-light'}
+,{ name:'@breadcrumb-separator', output: '"/"'}
+,{ name:'@carousel-text-shadow', output: '0 1px 2px rgba(0,0,0,.6)'}
+,{ name:'@carousel-control-color', output: '#fff'}
+,{ name:'@carousel-control-width', output: '0.15'}
+,{ name:'@carousel-control-opacity', output: '0.5'}
+,{ name:'@carousel-control-font-size', output: '20px'}
+,{ name:'@carousel-indicator-active-bg', output: '#fff'}
+,{ name:'@carousel-indicator-border-color', output: '#fff'}
+,{ name:'@carousel-caption-color', output: '#fff'}
+,{ name:'@close-font-weight', output: 'bold'}
+,{ name:'@close-color', output: '#000'}
+,{ name:'@close-text-shadow', output: '0 1px 0 #fff'}
+,{ name:'@code-color', output: '#c7254e'}
+,{ name:'@code-bg', output: '#f9f2f4'}
+,{ name:'@kbd-color', output: '#fff'}
+,{ name:'@kbd-bg', output: '#333'}
+,{ name:'@pre-bg', output: '#f5f5f5'}
+,{ name:'@pre-color', output: '@gray-dark'}
+,{ name:'@pre-border-color', output: '#ccc'}
+,{ name:'@pre-scrollable-max-height', output: '340px'}
+,{ name:'@component-offset-horizontal', output: '180px'}
+,{ name:'@text-muted', output: '@gray-light'}
+,{ name:'@abbr-border-color', output: '@gray-light'}
+,{ name:'@headings-small-color', output: '@gray-light'}
+,{ name:'@blockquote-small-color', output: '@gray-light'}
+,{ name:'@blockquote-font-size', output: '(@font-size-base * 1.25)'}
+,{ name:'@blockquote-border-color', output: '@gray-lighter'}
+,{ name:'@page-header-border-color', output: '@gray-lighter'}
+,{ name:'@dl-horizontal-offset', output: '@component-offset-horizontal'}
+,{ name:'@dl-horizontal-breakpoint', output: '@grid-float-breakpoint'}
+,{ name:'@hr-border', output: '@gray-lighter'}
 ];
