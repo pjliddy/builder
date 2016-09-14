@@ -19,14 +19,14 @@ variables = [
     , category: "Colors"
     , subcategory: "Brand Colors"
     , displayName: "Brand Primary"
-    , value: "#337ab7"
+    // , value: "#337ab7"
     , varType: "color"
     , configType: "function"
     , output: "darken(#428bca, 6.5%)"
     , variable: ""
-    , color: "#428bca"
-    , configFunction: "darken"
-    , tint: "6.5"
+    //, color: "#428bca"
+    //, configFunction: "darken"
+    //, tint: "6.5"
     }
     , {
     name: "brand-success"

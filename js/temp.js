@@ -85,11 +85,11 @@ function layoutVariables( dataObjects, target ){
   var varTemplate = _.template( $('#var-template').html());
 
   _.each( dataObjects, function( varObject, index, varObjects ){
-    varObject.getTemplate( target );
+    varObject.renderTemplate( target );
     // call subclass-specific template updates
-    if (typeof varObject.updateTemplate === "function") {
-      varObject.updateTemplate();
-    }
+//    if (typeof varObject.updateTemplate === "function") {
+//      varObject.updateTemplate();
+//    }
   });
 }
 

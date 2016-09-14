@@ -10,8 +10,8 @@ Variable = function( data ) {
   this.category = data.category;
   this.subcategory = data.subcategory
   this.output = data.output;
-  this.variable = data.variable;
-  this.tint = data.tint;
+  //this.variable = data.variable;
+//  this.tint = data.tint;
   this.template = _.template( $('#var-template').html());
 };
 
@@ -20,38 +20,7 @@ Variable.prototype.valueOf = function( ) {
   return this.value;
 };
 
-Variable.prototype.parseFunction = function() {
-  this.configFunction = this.output.match(/^[\w]*/).toString();
-  this.tint = s.strLeft(this.output.match(/[\d\.]*%/), '%');
-
-  if (( match = this.output.match(/#[\da-f]*/)) ||  (match = this.output.match(/@[\w-]*/)))  {
-    // if value is a var (treats it as a color == NO)
-    this.color = match.toString();
-    this.value = this.updateFunction();
-  }
-};
-
-Variable.prototype.updateFunction = function(){
-  switch( this.configFunction ) {
-    case 'lighten':
-     this.value = tinycolor( this.color ).lighten( this.tint ).toString();
-      break;
-    case 'darken':
-     this.value = tinycolor( this.color ).darken( this.tint ).toString();
-      break;
-  }
-
-  if (this.variable != "") {
-    this.color = getVarObj( this.variable ).valueOf();
-    this.output = this.configFunction + "(" + this.variable + "," + this.tint + "%)";
-  } else {
-    this.output = this.configFunction + "(" + this.color + "," + this.tint + "%)";
-  }
-
-  return this.value;
-};
-
-Variable.prototype.getTemplate = function( target ){
+Variable.prototype.renderTemplate = function( target ){
   var varLayout = this.template({
     variable: this
   });
@@ -93,7 +62,7 @@ ColorVar = function ( data ) {
   this.initValue( );
 };
 
-ColorVar.prototype = Object.create(Variable.prototype);
+ColorVar.prototype = Object.create( Variable.prototype );
 
 ColorVar.prototype.initValue = function( ){
   // output could be hex (colorpicker), @variable, or function
@@ -101,18 +70,58 @@ ColorVar.prototype.initValue = function( ){
     this.configType = 'colorpicker';
     this.color = this.output;
     this.value = this.output;
+    this.variable = "";
   } else if ( s.startsWith( this.output, '@' )){
     this.configType = 'variable';
+    this.variable = this.output;
     this.value = tinycolor( getVarObj( this.output ).valueOf()).toString();
-  } else if ( s.startsWith( this.output, 'lighten' ) || s.startsWith( this.output, 'darken' )){
+  } else if ( s.startsWith( this.output, 'lighten' )
+             || s.startsWith( this.output, 'darken' )){
     this.configType = 'function';
     this.parseFunction();
   }
 
-  if (this.variable){
+  if (this.variable ){
     // set listener to var -- needs to be at parent class level
     this.setVarListener( this );
   }
+};
+
+ColorVar.prototype.parseFunction = function() {
+
+  // REFERENCES COLOR -- NEEDS TO BE IN SUBCLASS
+  // HOW IS PARSE FUNCTION DEFINED FOR BASE CLASS?
+  this.configFunction = this.output.match(/^[\w]*/).toString();
+  this.tint = s.strLeft(this.output.match(/[\d\.]*%/), '%');
+
+  if (( match = this.output.match( /#[\da-f]*/ )) || ( match = this.output.match( /@[\w-]*/ )))  {
+    // if value is a var (treats it as a color == NO)
+    this.color = match.toString();
+    this.value = this.updateFunction();
+  }
+  if ( match = this.output.match( /@[\w-]*/ )){
+    this.variable = match.toString();
+  }
+};
+
+ColorVar.prototype.updateFunction = function(){
+  switch( this.configFunction ) {
+    case 'lighten':
+     this.value = tinycolor( this.color ).lighten( this.tint ).toString();
+      break;
+    case 'darken':
+     this.value = tinycolor( this.color ).darken( this.tint ).toString();
+      break;
+  }
+
+  if (this.variable ) {
+    this.color = getVarObj( this.variable ).valueOf();
+    this.output = this.configFunction + "(" + this.variable + "," + this.tint + "%)";
+  } else {
+    this.output = this.configFunction + "(" + this.color + "," + this.tint + "%)";
+  }
+
+  return this.value;
 };
 
 ColorVar.prototype.setVarListener = function( thisObj ){
@@ -142,15 +151,19 @@ ColorVar.prototype.calcValue = function(){
   $( this ).trigger( "updateValue" );
 };
 
-ColorVar.prototype.updateTemplate = function( ){
+ColorVar.prototype.renderTemplate = function( target ){
+
+  //  call super method from base class to render Variable layout
+  Variable.prototype.renderTemplate.call(this, target);
+
   // add color picker to varible UI
   var myTemplate = _.template('<a href="#" class="btn btn-default input-group-addon color-picker"></a>');
-  var target = $(this.element).find('.input-group input');
+  var myTarget = $(this.element).find('.input-group input');
   var varLayout = myTemplate({
     color:this.value
   });
 
-  $( target ).before( varLayout );
+  $( myTarget ).before( varLayout );
 
   this.updateDisplay();
 
@@ -161,13 +174,14 @@ ColorVar.prototype.updateTemplate = function( ){
   this.colorPickerListener( this );
 
   // add configTypes to configType dropdown
+  // CREATE FUNCTION FOR BASE VARIABLE CLASS AND UPDATE BY CHILD CLASSES
   var menuLayout = '<li><a href="#" data-value="colorpicker">Color Picker</a></li>'
     + '<li><a href="#" data-value="variable">Choose Variable</a></li>'
     + '<li><a href="#" data-value="function" data-option="darken">Darken</a></li>'
     + '<li><a href="#" data-value="function" data-option="lighten">Lighten</a></li>';
-  var target = $(this.element).find('.config-type ul');
+  var myTarget = $(this.element).find('.config-type ul');
 
-  $( target ).html( menuLayout );
+  $( myTarget ).html( menuLayout );
   this.configTypeListener( this );
   // set menu listener
 };
@@ -209,9 +223,6 @@ ColorVar.prototype.updateConfigType = function( evt ){
   }
 
   this.calcValue();
-
-  // TEMP CONSOLE
-  //console( JSON.stringify( this ));
 };
 
 //function updateConfigType(){
@@ -255,24 +266,11 @@ ColorVar.prototype.updateConfigType = function( evt ){
 //}
 //
 
-
-//  watch( this, 'value', function(){
-//    if ( getVar( variable.name, 'configType' ) == 'function'){
-//      setVar( variable.name, 'color', this.output); // update to handle more than just color
-//      updateConfigFunction( $('#' + variable.name));
-//    } else {
-//      setVar( variable.name, 'value', this.output);
-//      updateoutput( variable.name );
-//    }
-//  });
-
-
 ColorVar.prototype.colorPickerListener = function( thisObj ){
   $(thisObj.element).find('.color-picker').colorpicker().on('changeColor', function ( evt ) {
     thisObj.updateColorPicker( evt );
   });
 };
-
 
 ColorVar.prototype.updateColorPicker = function( evt ){
 
