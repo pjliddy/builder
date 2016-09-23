@@ -86,10 +86,6 @@ function layoutVariables( dataObjects, target ){
 
   _.each( dataObjects, function( varObject, index, varObjects ){
     varObject.renderTemplate( target );
-    // call subclass-specific template updates
-//    if (typeof varObject.updateTemplate === "function") {
-//      varObject.updateTemplate();
-//    }
   });
 }
 
@@ -172,15 +168,9 @@ function layoutVariables( dataObjects, target ){
 //        break;
 //    }
 //
-//    _.each( menuVars, function( menuVar, index, menuVars ){
-//      menuLayout += menuItemTemplate({ menuVar: menuVar });
 //
-//      if (menuVar.varType == 'color') {
-//        // tell color swatches to update
-//        watch(menuVar, "value", function(){
-//        $( '.var-menu-item:contains("@' + menuVar.name + '")').find('.swatch-dropdown').css('background-color', menuVar.value);
-//      });
-//    }
+
+
 //  });
 //  return menuLayout;
 //}

@@ -101,6 +101,11 @@ iframe {
   cursor: auto;
   background: #fff;
 }
+.list-group-item.disabled,
+.list-group-item.disabled:hover,
+.list-group-item.disabled:focus {
+  cursor: auto;
+}
 .tool-full-width {
   width: 204px !important;
 }

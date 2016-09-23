@@ -1,6 +1,14 @@
-//
-// VARIABLE CLASS
-//
+/*******************************
+*
+*  Variable Object Base Class
+*
+*******************************/
+
+/*
+ *
+ *  Variable Definition
+ *
+ */
 
 Variable = function( data ) {
   // set object properties
@@ -10,35 +18,134 @@ Variable = function( data ) {
   this.category = data.category;
   this.subcategory = data.subcategory
   this.output = data.output;
-  //this.variable = data.variable;
-//  this.tint = data.tint;
-  this.template = _.template( $('#var-template').html());
+
+  this.template = _.template( $( '#var-template' ).html( ));
 };
 
-Variable.prototype.valueOf = function( ) {
-  // returns calculated output value
-  return this.value;
-};
 
-Variable.prototype.renderTemplate = function( target ){
+/*
+ *
+ *  Variable Setup
+ *
+ */
+
+Variable.prototype.renderTemplate = function( wrapper ){
   var varLayout = this.template({
     variable: this
   });
 
-  $( target ).append( varLayout );
+  // add layout to UI and store HTML element for variable config UI
+  $( wrapper ).append( varLayout );
   this.element = $('#' + this.name );
 
   // set config type menu fly up or down
   this.flyUpListener( this );
 };
 
-Variable.prototype.flyUpListener = function( thisObj ){
-  $(thisObj.element).find('.config-type button').on('click', function ( evt ) {
-    thisObj.setFlyup( evt );
+
+/*
+ *
+ *  Variable Functions
+ *
+ */
+
+Variable.prototype.updateConfigType = function( evt ){
+  var configTypeSelect = evt.target.getAttribute( 'data-value' );
+  var useClass = false;
+
+  switch( configTypeSelect ) {
+    case 'function':
+//      $(this.element).find('.config-tint').show();
+//      $(this.element).find('.config-variables').hide();
+//      $(this.element).find('.config-fonts').hide();
+      this.configType = configTypeSelect;
+      this.configFunction = evt.target.getAttribute( 'data-option' );
+      this.updateFunction();
+      useClass = true;
+      break;
+    case 'variable':
+      this.varWidgetObj = new ConfigWidget( this, 'variable' );
+      this.varWidgetObj.renderTemplate( this );
+      this.setVarListener( this );
+      break;
+  }
+
+  if ( useClass ) {
+    this.calcValue();
+  }
+};
+
+Variable.prototype.updateDisplay = function( ){
+
+  // update config display field with this.output
+  // should be called from sub classes (update color swatch for color var, etc)
+
+  $( this.element ).find( '.config-display' ).val( this.output );
+};
+
+Variable.prototype.setVariable = function( variable ){
+  this.variable = variable;
+  this.color = "";
+
+  if (this.configType == 'function'){
+    this.value = this.updateFunction();
+  } else {
+     this.configType = 'variable';
+  }
+
+  this.setVarListener( this );
+  this.calcValue();
+}
+
+
+/*
+ *
+ *  Variable Utilities
+ *
+ */
+
+Variable.prototype.valueOf = function( ) {
+  // returns calculated output value
+  return this.value;
+};
+
+Variable.prototype.toString = function( ){
+  return JSON.stringify( this );
+}
+
+
+/*
+ *
+ *  Variable Event Listeners
+ *
+ */
+
+Variable.prototype.configTypeListener = function( thisObj ){
+
+  // config type menu item selected
+
+  $(thisObj.element).find('.config-type a').on('click', function ( evt ) {
+    thisObj.updateConfigType( evt, thisObj );
   });
 };
 
-Variable.prototype.setFlyup = function ( clickEvt ){
+Variable.prototype.flyUpListener = function( thisObj ){
+
+  // config type menu selected
+
+  $(thisObj.element).find('.config-type button').on('click', function ( evt ) {
+    thisObj.handleFlyup( evt );
+  });
+};
+
+
+/*
+ *
+ *  Variable Event Handlers
+ *
+ */
+
+Variable.prototype.handleFlyup = function ( clickEvt ){
   if ( $(window).height() - $( clickEvt.target).offset().top < 200 ){
     $( clickEvt.target).closest('.dropdown').addClass( "dropup" );
     $( clickEvt.target).closest('.dropdown').removeClass( "dropdown" );
@@ -48,13 +155,18 @@ Variable.prototype.setFlyup = function ( clickEvt ){
   }
 };
 
-Variable.prototype.updateDisplay = function (){
-  $(this.element).find('.config-display').val( this.output );
-};
+/********************************
+*
+*  ColorVar Object Class
+*  Extends Variable Base Class
+*
+*********************************/
 
-//
-// COLORVAR SUBCLASS
-//
+/*
+ *
+ *  ColorVar Definition
+ *
+ */
 
 ColorVar = function ( data ) {
   // Call the parent constructor
@@ -64,6 +176,13 @@ ColorVar = function ( data ) {
 
 ColorVar.prototype = Object.create( Variable.prototype );
 
+
+/*
+ *
+ *  ColorVar Setup
+ *
+ */
+
 ColorVar.prototype.initValue = function( ){
   // output could be hex (colorpicker), @variable, or function
   if ( s.startsWith( this.output, '#' )){
@@ -71,10 +190,12 @@ ColorVar.prototype.initValue = function( ){
     this.color = this.output;
     this.value = this.output;
     this.variable = "";
+    this.tint = 0;
   } else if ( s.startsWith( this.output, '@' )){
     this.configType = 'variable';
     this.variable = this.output;
     this.value = tinycolor( getVarObj( this.output ).valueOf()).toString();
+    this.tint = 0;
   } else if ( s.startsWith( this.output, 'lighten' )
              || s.startsWith( this.output, 'darken' )){
     this.configType = 'function';
@@ -87,94 +208,66 @@ ColorVar.prototype.initValue = function( ){
   }
 };
 
-ColorVar.prototype.parseFunction = function() {
+ColorVar.prototype.parseFunction = function( ){
 
-  // REFERENCES COLOR -- NEEDS TO BE IN SUBCLASS
-  // HOW IS PARSE FUNCTION DEFINED FOR BASE CLASS?
+  // should be part of parent class with super call
+
   this.configFunction = this.output.match(/^[\w]*/).toString();
   this.tint = s.strLeft(this.output.match(/[\d\.]*%/), '%');
 
-  if (( match = this.output.match( /#[\da-f]*/ )) || ( match = this.output.match( /@[\w-]*/ )))  {
+  if ( match = this.output.match( /#[\da-f]*/ )){
     // if value is a var (treats it as a color == NO)
     this.color = match.toString();
     this.value = this.updateFunction();
   }
   if ( match = this.output.match( /@[\w-]*/ )){
     this.variable = match.toString();
-  }
-};
-
-ColorVar.prototype.updateFunction = function(){
-  switch( this.configFunction ) {
-    case 'lighten':
-     this.value = tinycolor( this.color ).lighten( this.tint ).toString();
-      break;
-    case 'darken':
-     this.value = tinycolor( this.color ).darken( this.tint ).toString();
-      break;
-  }
-
-  if (this.variable ) {
     this.color = getVarObj( this.variable ).valueOf();
-    this.output = this.configFunction + "(" + this.variable + "," + this.tint + "%)";
-  } else {
-    this.output = this.configFunction + "(" + this.color + "," + this.tint + "%)";
+    this.value = this.updateFunction();
   }
-
-  return this.value;
 };
 
-ColorVar.prototype.setVarListener = function( thisObj ){
-  var target = getVarObj( thisObj.variable );
+ColorVar.prototype.renderTemplate = function( wrapper ){
 
-  $( target ).bind( "updateValue", function() {
-    thisObj.color = target.valueOf();
-    thisObj.calcValue();
-  });
-};
-
-ColorVar.prototype.calcValue = function(){
-  switch( this.configType ) {
-    case 'colorpicker':
-      this.value = this.output;
-      break;
-    case 'variable':
-      this.value = tinycolor( getVarObj( this.output ).valueOf()).toString();
-      break;
-    case 'function':
-      this.updateFunction();
-      break;
-  }
-
-  this.updateDisplay();
-  this.setDisplayColor();
-  $( this ).trigger( "updateValue" );
-};
-
-ColorVar.prototype.renderTemplate = function( target ){
+  // create separate functions for sub-templates?
+  // add full comments
 
   //  call super method from base class to render Variable layout
-  Variable.prototype.renderTemplate.call(this, target);
+  Variable.prototype.renderTemplate.call(this, wrapper);
 
-  // add color picker to varible UI
+  this.addColorPicker( wrapper );
+
+  // add configTypes to configType dropdown
+  this.addConfigMenu( );
+
+};
+
+ColorVar.prototype.addColorPicker = function( wrapper ){
+  // set up underscore template
   var myTemplate = _.template('<a href="#" class="btn btn-default input-group-addon color-picker"></a>');
   var myTarget = $(this.element).find('.input-group input');
   var varLayout = myTemplate({
     color:this.value
   });
 
+  // add picker to DOM
   $( myTarget ).before( varLayout );
 
-  this.updateDisplay();
-
-  // create color picker object with the specified hex color
+  // create color picker object with the the value of this colorVar
   $(this.element).find( '.color-picker' ).colorpicker({ color: this.valueOf( ), align: 'left' });
 
-  this.setDisplayColor();
-  this.colorPickerListener( this );
+  // update UI values
+  this.updateDisplay();
+//  this.setDisplayColor();
 
-  // add configTypes to configType dropdown
-  // CREATE FUNCTION FOR BASE VARIABLE CLASS AND UPDATE BY CHILD CLASSES
+  // set up color picker listener
+  this.colorPickerListener( this );
+}
+
+ColorVar.prototype.addConfigMenu = function( ){
+
+  // CREATE FUNCTION FOR BASE VARIABLE CLASS (choose variable) AND UPDATE BY CHILD CLASSES?
+
   var menuLayout = '<li><a href="#" data-value="colorpicker">Color Picker</a></li>'
     + '<li><a href="#" data-value="variable">Choose Variable</a></li>'
     + '<li><a href="#" data-value="function" data-option="darken">Darken</a></li>'
@@ -184,52 +277,155 @@ ColorVar.prototype.renderTemplate = function( target ){
   $( myTarget ).html( menuLayout );
   this.configTypeListener( this );
   // set menu listener
+}
+
+
+/*
+ *
+ *  ColorVar Functions
+ *
+ */
+
+ColorVar.prototype.updateFunction = function( ){
+
+  if (this.variable ) {
+    this.color = getVarObj( this.variable ).valueOf();
+    this.output = this.configFunction + "(" + this.variable + "," + this.tint + "%)";
+  } else {
+    this.output = this.configFunction + "(" + this.color + "," + this.tint + "%)";
+  }
+  // should be part of parent class with super call
+
+  switch( this.configFunction ) {
+    case 'lighten':
+     this.value = tinycolor( this.color ).lighten( this.tint ).toString();
+      break;
+    case 'darken':
+     this.value = tinycolor( this.color ).darken( this.tint ).toString();
+      break;
+  }
+
+  this.updateDisplay();
+
+  return this.value;
 };
 
-ColorVar.prototype.setDisplayColor = function( ){
+ColorVar.prototype.calcValue = function(){
+
+  // should be part of parent class with super call
+
+  var oldValue = this.valueOf();
+
+  switch( this.configType ) {
+    case 'colorpicker':
+      this.value = this.output;
+      break;
+    case 'variable':
+      this.value = tinycolor( getVarObj( this.variable ).valueOf()).toString();
+      this.output = this.variable;
+      break;
+    case 'function':
+      this.updateFunction();
+      break;
+  }
+
+  this.updateDisplay();
+
+  if (this.valueOf() != oldValue ){
+    // prevents unecessary events triggered by color picker
+    $( this ).trigger( "updateValue" );
+  }
+};
+
+
+/*
+ *
+ *  ColorVar Utilities
+ *
+ */
+
+ColorVar.prototype.updateDisplay = function( ){
+
+  // update display field
+  Variable.prototype.updateDisplay.call( this );
+
   // set color picker display color
   $(this.element).find( '.color-picker' ).css( 'background-color', this.valueOf( ));
 }
 
-ColorVar.prototype.configTypeListener = function( thisObj ){
-   // color config type menu item selected
-  $(thisObj.element).find('.config-type a').on('click', function ( evt ) {
-    thisObj.updateConfigType( evt, thisObj );
+
+/*
+ *
+ *  ColorVar Event Listeners
+ *
+ */
+
+ColorVar.prototype.setVarListener = function( thisObj ){
+  var target = getVarObj( thisObj.variable );
+
+  $( target ).bind( "updateValue", function( ) {
+    thisObj.calcValue( );
   });
 };
 
+ColorVar.prototype.colorPickerListener = function( thisObj ){
+  $( thisObj.element ).find( '.color-picker' ).colorpicker( ).on( 'changeColor', function ( evt ) {
+    thisObj.updateColorPicker( evt );
+  });
+};
+
+
+/*
+ *
+ *  ColorVar Event Handlers
+ *
+ */
+
 ColorVar.prototype.updateConfigType = function( evt ){
-  // TEMP CONSOLE
-  //console( evt.target.getAttribute( 'data-value' ) + ": " +this.name );
+
+  Variable.prototype.updateConfigType.call(this, evt);
 
   var configTypeSelect = evt.target.getAttribute( 'data-value' );
+  var useClass = false;
+
   switch( configTypeSelect ) {
     case 'colorpicker':
-//      $(this.element).find('.config-variables').hide();
+      $(this.element).find('.config-variables').hide();
 //      $(this.element).find('.config-tint').hide();
       this.configType = configTypeSelect;
       this.variable = '';
       this.color =this.value;
       this.output =this.value;
-      break;
-    case 'function':
-//      $(this.element).find('.config-tint').show();
-//      $(this.element).find('.config-variables').hide();
-//      $(this.element).find('.config-fonts').hide();
-      this.configType = configTypeSelect;
-      this.configFunction = evt.target.getAttribute( 'data-option' );
-      this.updateFunction();
+      useClass = true;
       break;
   }
 
-  this.calcValue();
+  if ( useClass ){
+    this.calcValue();
+  }
 };
+
+ColorVar.prototype.updateColorPicker = function( evt ){
+  var tempColor = this.value;
+  this.color = evt.color.toHex()
+  if ( this.color != tempColor ){
+    if ( this.configType == 'function'){
+      this.variable = '';
+    } else {
+      this.configType = 'colorpicker';
+      this.output = this.color;
+    }
+    this.calcValue();
+  }
+};
+
+
 
 //function updateConfigType(){
 //  switch( this.configType ) {
 
 //    case 'variable':
-//      // destroy existing menu
+//      // destroy existing menu (should be on close widget)
 //      $(this.element).find('.config-variables ul').empty();
 //      var menuLayout = layoutVarMenu( this.name, getVar( this.name, 'varType') );
 //      $(this.element).find('.config-variables ul').append( menuLayout);
@@ -266,27 +462,234 @@ ColorVar.prototype.updateConfigType = function( evt ){
 //}
 //
 
-ColorVar.prototype.colorPickerListener = function( thisObj ){
-  $(thisObj.element).find('.color-picker').colorpicker().on('changeColor', function ( evt ) {
-    thisObj.updateColorPicker( evt );
+
+
+
+/**********************
+*
+*  ConfigWidget Class
+*
+***********************/
+
+/*
+ *
+ *  Class Definition
+ *
+ */
+
+// DEFINE / SEPARATE THIS.ELEMENT FROM BASE INSTANTIATOR
+
+ConfigWidget = function( varObj, widgetType ) {
+  this.varObj = varObj;
+
+  // get varObjects with the matching varType (excluding self)
+  this.variables = _.filter( gVarData, function( varData ){
+      return (varData.varType == varObj.varType); // && (varData != varObj))
+    }
+  );
+
+  this.element = $( this.varObj.element ).find('.config-variables .list-group');
+};
+
+
+/*
+ *
+ *  ConfigWidget Setup
+ *
+ */
+
+
+// COLOR VAR WIDGET CLASS (BREAK DOWN INTO WIDGET, VAR, AND COLOR VAR)
+
+
+ConfigWidget.prototype.renderTemplate = function( varObj ){
+  var menuItemTemplate = _.template(
+      '<a href="#" class="list-group-item var-menu-item text-nowrap" data-value="<%= varObj.name %>">'
+      + '<span class="swatch-dropdown" style="background-color: <%= varObj.value %>"></span>@<%= varObj.name %>'
+      + '</a>'
+    );
+
+  var thisObj = this;  //needed because _.each treats this as the window
+  _.each( varObj.varWidgetObj.variables, function( variable, index, variables ){
+
+    // create new variable menuObject containing menuItem objects
+    var label = "@"+variable.name;
+
+    var menuItemLayout = menuItemTemplate({
+      varObj: variable
+    });
+
+    $( thisObj.element ).append( menuItemLayout );
+
+    // listener for updateVariable event
+    thisObj.setVarListener( thisObj, variable );
+
+    // listener for click on config menu item
+    thisObj.setVarSelectListener( thisObj, variable );
+
+    // if self, disable this one or if the variable references this varObj
+    if (( variable == varObj ) || ( variable.variable == "@" + varObj.name )){
+      $( varObj.element ).find( '.var-menu-item[data-value=' + variable.name + ']').addClass('disabled');
+    }
+  });
+
+  // set listener for close
+  this.setCloseListener( this );
+
+  // show configWidget
+  $( this.element ).closest('.config-variables').show();
+};
+
+
+/*
+ *
+ *  ConfigWidget Functions
+ *
+ */
+
+
+/*
+ *
+ *  ConfigWidget Utilities
+ *
+ */
+
+
+/*
+ *
+ *  ConfigWidget Event Listeners
+ *
+ */
+
+// WIDGET CLASS
+
+ConfigWidget.prototype.setCloseListener = function( thisObj ){
+  $( thisObj.element ).closest( '.config-variables' ).find( '.config-close' ).on( 'click', function ( evt ){
+    thisObj.closeWidget( evt, thisObj );
   });
 };
 
-ColorVar.prototype.updateColorPicker = function( evt ){
+// COLOR VAR WIDGET SUB CLASS
 
-  var tempColor = this.value;
-  this.color = evt.color.toHex()
-  if ( this.color != tempColor ){
-    // set config type = color picker (m ay not change mode if current mode = formula)
-    if ( this.configType != 'function'){
-      this.configType = 'colorpicker';
-      this.output = this.color;
-     this.value = this.color;
-    } else {
-      this.variable = '';
-    }
-    this.calcValue();
-  }
+ConfigWidget.prototype.setVarListener = function( thisObj, varObj ){
+  //var targetObj = getVarObj( '@' + varObj.name );
+
+  $( varObj ).on( "updateValue", function( ) {
+    // set swatch color
+    $( thisObj.element ).find('.var-menu-item[data-value=' + varObj.name + '] .swatch-dropdown').css('background-color', varObj.valueOf());
+  });
 };
 
+// VAR WIDGET CLASS
+
+ConfigWidget.prototype.endVarListener = function( thisObj, varObj ){
+  $( varObj ).off( "updateValue" );
+};
+
+// VAR WIDGET CLASS
+
+ConfigWidget.prototype.setVarSelectListener = function( thisObj, varObj ){
+  $( thisObj.element ).find( '.var-menu-item[data-value=' + varObj.name + ']' ).on( 'click', function ( evt ){
+    thisObj.updateVariable( evt, thisObj );
+  });
+};
+
+
+/*
+ *
+ *  ConfigWidget Event Handlers
+ *
+ */
+
+ConfigWidget.prototype.closeWidget = function( evt, thisObj ){
+  var wrapper = $( thisObj.element ).closest( '.config-variables' )
+
+  // hide .config-variables
+  $( wrapper ).hide();
+
+  // clear .list-group wrapper html
+  $( wrapper ).find( '.list-group' ).empty();
+
+  // remove close event handler
+  $( thisObj.element ).closest( '.config-variables' ).find( '.config-close' ).off( 'click' );
+
+  // need to destroy object? generate close event & have parent destroy?
+};
+
+ConfigWidget.prototype.updateVariable = function( evt, thisObj ){
+  var newVariable = evt.target.getAttribute( 'data-value' );
+  thisObj.varObj.setVariable( '@' + newVariable );
+};
+
+
+
+//function layoutVarMenu( myVarID, varType ){
+
+//      case 'font-family':
+//        var menuItemTemplate = _.template(
+//          '<a href="#" class="list-group-item var-menu-item text-nowrap" data-value="<%= menuVar.name %>">'
+//          + '@<%= menuVar.name %>'
+//          + '</a>'
+//        );
+//        break;
+//      case 'font-size':
+//        var menuItemTemplate = _.template(
+//          '<a href="#" class="list-group-item var-menu-item text-nowrap" data-value="<%= menuVar.name %>">'
+//          + '@<%= menuVar.name %>'
+//          + '</a>'
+//        );
+//        break;
+//      case 'attribute':
+//         var menuItemTemplate = _.template(
+//          '<a href="#" class="list-group-item var-menu-item text-nowrap" data-value="<%= attribute %>">'
+//          + '@<%= attribute %>'
+//          + '</a>'
+//        );
+//        break;
+//    }
+
+
+
+
+/*******************************
+*
+*  Class Name
+*
+*******************************/
+
+/*
+ *
+ *  Class Definition
+ *
+ */
+
+/*
+ *
+ *  Class Setup
+ *
+ */
+
+/*
+ *
+ *  Class Functions
+ *
+ */
+
+/*
+ *
+ *  Class Utilities
+ *
+ */
+
+/*
+ *
+ *  Class Event Listeners
+ *
+ */
+
+/*
+ *
+ *  ColorVar Event Handlers
+ *
+ */
 
