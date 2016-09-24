@@ -29,6 +29,17 @@ Variable = function( data ) {
  *
  */
 
+Variable.prototype.initValue = function( ){
+  if ( s.startsWith( this.output, '@' )){
+
+    // is a variable
+    this.configType = 'variable';
+    this.variable = this.output;
+    this.value = getVarObj( this.output ).valueOf();
+    this.setVarListener( this );
+  }
+};
+
 Variable.prototype.renderTemplate = function( wrapper ){
   var varLayout = this.template({
     variable: this
@@ -66,7 +77,6 @@ Variable.prototype.updateConfigType = function( evt ){
     case 'variable':
       this.varWidgetObj = new ConfigWidget( this, 'variable' );
       this.varWidgetObj.renderTemplate( this );
-      this.setVarListener( this );
       break;
   }
 
@@ -76,10 +86,6 @@ Variable.prototype.updateConfigType = function( evt ){
 };
 
 Variable.prototype.updateDisplay = function( ){
-
-  // update config display field with this.output
-  // should be called from sub classes (update color swatch for color var, etc)
-
   $( this.element ).find( '.config-display' ).val( this.output );
 };
 
@@ -120,10 +126,9 @@ Variable.prototype.toString = function( ){
  *
  */
 
-Variable.prototype.configTypeListener = function( thisObj ){
+Variable.prototype.setConfigTypeListener = function( thisObj ){
 
   // config type menu item selected
-
   $(thisObj.element).find('.config-type a').on('click', function ( evt ) {
     thisObj.updateConfigType( evt, thisObj );
   });
@@ -132,7 +137,6 @@ Variable.prototype.configTypeListener = function( thisObj ){
 Variable.prototype.flyUpListener = function( thisObj ){
 
   // config type menu selected
-
   $(thisObj.element).find('.config-type button').on('click', function ( evt ) {
     thisObj.handleFlyup( evt );
   });
@@ -156,10 +160,10 @@ Variable.prototype.handleFlyup = function ( clickEvt ){
 };
 
 /********************************
-*
-*  ColorVar Object Class
-*  Extends Variable Base Class
-*
+*                               *
+*  ColorVar Object Class        *
+*  Extends Variable Base Class  *
+*                               *
 *********************************/
 
 /*
@@ -169,7 +173,6 @@ Variable.prototype.handleFlyup = function ( clickEvt ){
  */
 
 ColorVar = function ( data ) {
-  // Call the parent constructor
   Variable.call( this, data );
   this.initValue( );
 };
@@ -184,73 +187,62 @@ ColorVar.prototype = Object.create( Variable.prototype );
  */
 
 ColorVar.prototype.initValue = function( ){
-  // output could be hex (colorpicker), @variable, or function
+  Variable.prototype.initValue.call( this );
+  this.tint = 0;
+
   if ( s.startsWith( this.output, '#' )){
+    // is a hex color
     this.configType = 'colorpicker';
     this.color = this.output;
     this.value = this.output;
     this.variable = "";
-    this.tint = 0;
-  } else if ( s.startsWith( this.output, '@' )){
-    this.configType = 'variable';
-    this.variable = this.output;
-    this.value = tinycolor( getVarObj( this.output ).valueOf()).toString();
-    this.tint = 0;
-  } else if ( s.startsWith( this.output, 'lighten' )
-             || s.startsWith( this.output, 'darken' )){
+  } else if ( s.startsWith( this.output, 'lighten' ) || s.startsWith( this.output, 'darken' )){
+    // is a color function
     this.configType = 'function';
     this.parseFunction();
-  }
-
-  if (this.variable ){
-    // set listener to var -- needs to be at parent class level
-    this.setVarListener( this );
   }
 };
 
 ColorVar.prototype.parseFunction = function( ){
 
-  // should be part of parent class with super call
+  // functions specific for color (for now)
 
   this.configFunction = this.output.match(/^[\w]*/).toString();
   this.tint = s.strLeft(this.output.match(/[\d\.]*%/), '%');
 
   if ( match = this.output.match( /#[\da-f]*/ )){
-    // if value is a var (treats it as a color == NO)
+    // has hex color
     this.color = match.toString();
-    this.value = this.updateFunction();
-  }
-  if ( match = this.output.match( /@[\w-]*/ )){
+  } else if ( match = this.output.match( /@[\w-]*/ )){
+    // has variable
     this.variable = match.toString();
-    this.color = getVarObj( this.variable ).valueOf();
-    this.value = this.updateFunction();
+    this.setVarListener( this );
   }
+
+  this.updateFunction();
 };
 
 ColorVar.prototype.renderTemplate = function( wrapper ){
 
-  // create separate functions for sub-templates?
-  // add full comments
-
   //  call super method from base class to render Variable layout
-  Variable.prototype.renderTemplate.call(this, wrapper);
+  Variable.prototype.renderTemplate.call( this, wrapper );
 
+  // add color picker to UI
   this.addColorPicker( wrapper );
 
   // add configTypes to configType dropdown
   this.addConfigMenu( );
-
 };
 
 ColorVar.prototype.addColorPicker = function( wrapper ){
   // set up underscore template
-  var myTemplate = _.template('<a href="#" class="btn btn-default input-group-addon color-picker"></a>');
-  var myTarget = $(this.element).find('.input-group input');
+  var myTemplate = _.template( '<a href="#" class="btn btn-default input-group-addon color-picker"></a>' );
+  var myTarget = $(this.element).find( '.input-group input' );
   var varLayout = myTemplate({
     color:this.value
   });
 
-  // add picker to DOM
+  // add picker to UI
   $( myTarget ).before( varLayout );
 
   // create color picker object with the the value of this colorVar
@@ -258,7 +250,6 @@ ColorVar.prototype.addColorPicker = function( wrapper ){
 
   // update UI values
   this.updateDisplay();
-//  this.setDisplayColor();
 
   // set up color picker listener
   this.colorPickerListener( this );
@@ -275,8 +266,7 @@ ColorVar.prototype.addConfigMenu = function( ){
   var myTarget = $(this.element).find('.config-type ul');
 
   $( myTarget ).html( menuLayout );
-  this.configTypeListener( this );
-  // set menu listener
+  this.setConfigTypeListener( this );
 }
 
 
@@ -288,26 +278,26 @@ ColorVar.prototype.addConfigMenu = function( ){
 
 ColorVar.prototype.updateFunction = function( ){
 
-  if (this.variable ) {
-    this.color = getVarObj( this.variable ).valueOf();
+  // only valid for color now; may move to base class with more var types
+
+  if ( this.variable ) {
+    var myColor = getVarObj( this.variable ).valueOf();
     this.output = this.configFunction + "(" + this.variable + "," + this.tint + "%)";
   } else {
+    var myColor = this.color;
     this.output = this.configFunction + "(" + this.color + "," + this.tint + "%)";
   }
-  // should be part of parent class with super call
 
   switch( this.configFunction ) {
     case 'lighten':
-     this.value = tinycolor( this.color ).lighten( this.tint ).toString();
+     this.value = tinycolor( myColor ).lighten( this.tint ).toString();
       break;
     case 'darken':
-     this.value = tinycolor( this.color ).darken( this.tint ).toString();
+     this.value = tinycolor( myColor ).darken( this.tint ).toString();
       break;
   }
 
   this.updateDisplay();
-
-  return this.value;
 };
 
 ColorVar.prototype.calcValue = function(){
@@ -382,9 +372,7 @@ ColorVar.prototype.colorPickerListener = function( thisObj ){
  */
 
 ColorVar.prototype.updateConfigType = function( evt ){
-
   Variable.prototype.updateConfigType.call(this, evt);
-
   var configTypeSelect = evt.target.getAttribute( 'data-value' );
   var useClass = false;
 
@@ -407,7 +395,8 @@ ColorVar.prototype.updateConfigType = function( evt ){
 
 ColorVar.prototype.updateColorPicker = function( evt ){
   var tempColor = this.value;
-  this.color = evt.color.toHex()
+  this.color = evt.color.toHex();
+
   if ( this.color != tempColor ){
     if ( this.configType == 'function'){
       this.variable = '';
@@ -511,23 +500,21 @@ ConfigWidget.prototype.renderTemplate = function( varObj ){
 
   var thisObj = this;  //needed because _.each treats this as the window
   _.each( varObj.varWidgetObj.variables, function( variable, index, variables ){
-
-    // create new variable menuObject containing menuItem objects
     var label = "@"+variable.name;
-
     var menuItemLayout = menuItemTemplate({
       varObj: variable
     });
 
     $( thisObj.element ).append( menuItemLayout );
 
-    // listener for updateVariable event
+    // listener for change in variable values (update display if changes)
     thisObj.setVarListener( thisObj, variable );
 
     // listener for click on config menu item
     thisObj.setVarSelectListener( thisObj, variable );
 
     // if self, disable this one or if the variable references this varObj
+    // should go through chain to avoid circular references (can't select shared ancestor?)
     if (( variable == varObj ) || ( variable.variable == "@" + varObj.name )){
       $( varObj.element ).find( '.var-menu-item[data-value=' + variable.name + ']').addClass('disabled');
     }
