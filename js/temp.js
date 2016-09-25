@@ -95,8 +95,6 @@ function layoutVariables( dataObjects, target ){
 //// CREATE UI ELEMENTS
 
 
-//  // create sliders
-//  $("input.slider").slider();
 //
 //// EVENT LISTENERS -- move to where they are created (template scripts)
 //
@@ -104,13 +102,7 @@ function layoutVariables( dataObjects, target ){
 //  $('#link-export').click( generateVariables );
 //
 //
-//  // config variable close clicked
-//  $('.config-close').click( configClose );
-//
-//  // config slider updated
-//  $(".config-tint .slider").on("slide", function( slideEvt ) {
-//    updateConfigTint( slideEvt );
-//  });
+
 //
 //  // scroll to panel
 //
@@ -118,11 +110,6 @@ function layoutVariables( dataObjects, target ){
 //    var dest = s.strRight($(this).attr('id'), 'collapse-');
 //    $('#layoutframe')[0].contentWindow.$('body').trigger('scrollTo', dest );
 //  });
-//
-//  $('.variable-display').each(function(){
-//    updateoutput( $(this).attr("id") );
-//  });
-//});
 
 
 ////
@@ -267,15 +254,6 @@ function layoutVariables( dataObjects, target ){
 
 
 
-//function updateConfigTint( slideEvt ){
-//  var myVarContainer = slideEvt.target.closest('.variable-display');
-//  var myVarID = myVarContainer.id;
-//  var tintValue = slideEvt.value;
-//
-//  setVar( myVarID, 'tint', tintValue );
-//  updateConfigFunction( myVarContainer );
-//  updateoutput( myVarID );
-//}
 
 
 //function updateConfigFontFamily(){
@@ -307,10 +285,6 @@ function layoutVariables( dataObjects, target ){
 //  updateoutput( myVarID ); // bind display to value when created ?
 //}
 
-
-//function configClose( ){
-//  var myVarContainer = $(this).closest('div').hide();
-//}
 
 
 //

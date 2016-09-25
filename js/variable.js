@@ -107,10 +107,11 @@ Variable.prototype.updateConfigType = function (evt) {
       this.configFunction = evt.target.getAttribute('data-option');
       this.updateFunction();
       useClass = true;
-    break;
+      break;
     case 'variable':
       this.createVarWidget ();
-    break;
+      this.varWidgetObj.setVarSelectListener(this.varWidgetObj, this);
+      break;
   }
 
   if (useClass) {
@@ -415,10 +416,26 @@ ColorVar.prototype.updateConfigType = function (evt) {
       this.output =this.value;
       useClass = true;
       break;
+    case 'function':
+//      $(this.element).find('.config-tint').show();
+//      $(this.element).find('.config-variables').hide();
+//      $(this.element).find('.config-fonts').hide();
+
+      this.createTintWidget ();
+
+      useClass = true;
+      break;
   }
 
   if (useClass) {
     this.calcValue();
+  }
+};
+
+ColorVar.prototype.createTintWidget = function () {
+  if (!this.tintWIdgetObj) {
+    this.tintWidgetObj = new SliderConfigWidget(this, this.tint);
+    this.tintWidgetObj.renderTemplate(this);
   }
 };
 
@@ -468,6 +485,17 @@ ColorVar.prototype.updateColorPicker = function (evt) {
 //
 
 
+//function layoutVarMenu(myVarID, varType) {
+
+//      case 'font-family':
+//        var menuItemTemplate = _.template(
+//          '<a href="#" class="list-group-item var-menu-item text-nowrap" data-value="<%= menuVar.name %>">'
+//          + '@<%= menuVar.name %>'
+//          + '</a>'
+//       );
+//        break;
+
+
 
 
 /***********************
@@ -486,39 +514,8 @@ ConfigWidget = function (varObj) {
  );
 };
 
-ConfigWidget.prototype.renderTemplate = function (varObj) {
-  // needs self rev because _.each treats 'this' as the window
-  var thisObj = this;
-
-  _.each(varObj.varWidgetObj.variables, function (variable, index, variables) {
-    var label = "@" + variable.name;
-    var menuItemLayout = thisObj.menuItemTemplate({
-      varObj: variable
-    });
-
-    $(thisObj.element).append(menuItemLayout);
-
-    // listener for change in variable values (update display if changes)
-    thisObj.setVarListener(thisObj, variable);
-
-    // disable circular or self-references (shared ancestor?)
-    if ((variable == varObj) || (variable.variable == "@" + varObj.name)) {
-      $(varObj.element).find('.var-menu-item[data-value=' + variable.name + ']').addClass('disabled');
-    }
-
-    // listener for click on config menu item
-    thisObj.setVarSelectListener(thisObj, variable);
-  });
-
-  // set listener for close
-  this.setCloseListener(this);
-
-  // show configWidget
-  $(this.element).closest('.config-variables').show();
-};
-
 ConfigWidget.prototype.setCloseListener = function (thisObj) {
-  $(thisObj.element).closest('.config-variables').find('.config-close').on('click', function (evt) {
+  $(thisObj.element).closest('[class^="config"]').find('.config-close').on('click', function (evt) {
     thisObj.closeWidget(evt, thisObj);
   });
 };
@@ -554,6 +551,41 @@ VarConfigWidget = function (varObj) {
 
 VarConfigWidget.prototype = Object.create(ConfigWidget.prototype);
 
+VarConfigWidget.prototype.renderTemplate = function (varObj) {
+  // needs self rev because _.each treats 'this' as the window
+  var thisObj = this;
+
+  // assumes there's a list of variables (onlly applies for VarConfigWidget)
+
+  _.each(thisObj.variables, function (variable, index, variables) {
+    var label = "@" + variable.name;
+    var menuItemLayout = thisObj.menuItemTemplate({
+      varObj: variable
+    });
+
+    $(thisObj.element).append(menuItemLayout);
+
+    // listener for change in variable values (update display if changes)
+    thisObj.setVarListener(thisObj, variable);
+
+    // disable circular or self-references (shared ancestor?)
+    if ((variable == varObj) || (variable.variable == "@" + varObj.name)) {
+      $(varObj.element).find('.var-menu-item[data-value=' + variable.name + ']').addClass('disabled');
+    }
+
+    // needs to show active/selected item as well
+
+    // listener for click on config menu item
+    thisObj.setVarSelectListener(thisObj, variable);
+  });
+
+  // set listener for close
+  this.setCloseListener(this);
+
+  // show configWidget
+  $(this.element).closest('.config-variables').show();
+};
+
 VarConfigWidget.prototype.endVarListener = function (thisObj, varObj) {
   $(varObj).off("updateValue");
 };
@@ -565,7 +597,7 @@ VarConfigWidget.prototype.setVarSelectListener = function (thisObj, varObj) {
 };
 
 VarConfigWidget.prototype.closeWidget = function (evt, thisObj) {
-  var wrapper = $(thisObj.element).closest('.config-variables')
+  var wrapper = $(thisObj.element).closest('[class^="config"]');
 
   // hide .config-variables
   $(wrapper).hide();
@@ -574,7 +606,7 @@ VarConfigWidget.prototype.closeWidget = function (evt, thisObj) {
   $(wrapper).find('.list-group').empty();
 
   // remove close event handler
-  $(thisObj.element).closest('.config-variables').find('.config-close').off('click');
+  $(thisObj.element).closest('[class^="config"]').find('.config-close').off('click');
 
   // need to destroy object? generate close event & have parent destroy?
 };
@@ -605,32 +637,88 @@ ColorVarConfigWidget.prototype.setVarListener = function (thisObj, varObj) {
 };
 
 
+/********************************
+*                               *
+*  SliderConfigWidget SubClass  *
+*                               *
+*********************************/
+
+SliderConfigWidget = function (varObj, initValue) {
+  ConfigWidget.call(this, varObj);
+  this.template = _.template(
+    '<div class="config-tint" >'
+    +  '<label>Tint</label>'
+    +  '<button type="button" class="btn btn-link config-close pull-right">×</button>'
+    +  '<!-- bootstrap slider -->'
+    +  '<input type="text"'
+    +    'data-provide="slider"'
+    +    'data-slider-min="0"'
+    +    'data-slider-max="100"'
+    +    'data-slider-step=".5"'
+    +    'data-slider-value="' + initValue + '"'
+//    +    'data-slider-tooltip="hide"/>'
+    + '</div>'
+   );
+};
+
+SliderConfigWidget.prototype = Object.create(ConfigWidget.prototype);
+
+SliderConfigWidget.prototype.renderTemplate = function (varObj) {
+  var sliderLayout = this.template({
+    varObj: varObj
+  });
+
+  $(varObj.element).find('.config-variables').after(sliderLayout);
+
+  this.element = $(this.varObj.element).find('.config-tint');
+
+  // refers to color not value
+  // needs to be value agnostic (pass in var, have parent own assignment w/listener)
+
+//  // config slider updated
+//  $(".config-tint .slider").on("slide", function( slideEvt ) {
+//    updateConfigTint( slideEvt );
+//  });
+
+  // set listener for close
+  this.setCloseListener(this);
+
+  // create slider object
+  $(varObj.element).find('.config-tint input').slider();
+
+  // show configWidget
+  $(varObj.element).find('.config-tint').show();
+};
+
+SliderConfigWidget.prototype.closeWidget = function (evt, thisObj) {
+  var wrapper = $(thisObj.element).closest('[class^="config"]');
+
+  // hide .config-variables
+  $(wrapper).hide();
+
+  // remove close event handler
+  $(thisObj.element).closest('[class^="config"]').find('.config-close').off('click');
+
+  // clear config tint html
+  $(thisObj.element).closest('.config-tint').remove();
+
+  // need to destroy object? generate close event & have parent destroy?
+};
 
 
-//function layoutVarMenu(myVarID, varType) {
 
-//      case 'font-family':
-//        var menuItemTemplate = _.template(
-//          '<a href="#" class="list-group-item var-menu-item text-nowrap" data-value="<%= menuVar.name %>">'
-//          + '@<%= menuVar.name %>'
-//          + '</a>'
-//       );
-//        break;
-//      case 'font-size':
-//        var menuItemTemplate = _.template(
-//          '<a href="#" class="list-group-item var-menu-item text-nowrap" data-value="<%= menuVar.name %>">'
-//          + '@<%= menuVar.name %>'
-//          + '</a>'
-//       );
-//        break;
-//      case 'attribute':
-//         var menuItemTemplate = _.template(
-//          '<a href="#" class="list-group-item var-menu-item text-nowrap" data-value="<%= attribute %>">'
-//          + '@<%= attribute %>'
-//          + '</a>'
-//       );
-//        break;
-//    }
+//function updateConfigTint( slideEvt ){
+//  var myVarContainer = slideEvt.target.closest('.variable-display');
+//  var myVarID = myVarContainer.id;
+//  var tintValue = slideEvt.value;
+//
+//  setVar( myVarID, 'tint', tintValue );
+//  updateConfigFunction( myVarContainer );
+//  updateoutput( myVarID );
+//}
+
+
+
 
 
 
